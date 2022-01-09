@@ -1,0 +1,187 @@
+================================================================================
+Integer literals
+================================================================================
+
+int a = 128;
+short a = 128i16;
+ushort a = 128u16;
+int b = 3_000_000;
+long b = 3_000_000i64;
+ulong b = 3_000_000u64;
+uint c = 4_000u;
+uint c = 4_000u32;
+int c = 4_000i32;
+long d = 0xC4_FF;
+long d = 0xC4_FFi128;
+ulong d = 0xC4_FFu128;
+int e = 0o775_111;
+int e = 0o775_111i16;
+uint e = 0o775_111u16;
+char f = 0b1001_1001;
+ichar f = 0b1001_1001i8;
+char f = 0b1001_1001u8;
+
+---
+
+(source_file
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal))
+  (var_declaration (primitive_type) (identifier) (integer_literal)))
+
+
+================================================================================
+Float literals
+================================================================================
+
+float a = 1f;
+float a = -2.22e21;
+float a = -2.22e-21;
+float a = -2.22e-21f;
+float a = -2.22e-21f32;
+half b = 1f16;
+half b = 1f16;
+half b = 1.0f16;
+half b = 1.0e-10f16;
+double c = -0x21.93p10;
+double c = -0x21.93p10f64;
+double c = -0x21.93p-10;
+double c = -0x21.93p-10f64;
+quad d = 1.0;
+quad d = 1.0e;
+quad d = 1.0e1;
+quad d = 1.0e1f128;
+quad d = 1.0E;
+
+---
+
+(source_file
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal))
+  (var_declaration (primitive_type) (identifier) (float_literal)))
+
+================================================================================
+Boolean literals
+================================================================================
+
+bool a = true;
+bool b = false;
+
+---
+
+(source_file
+  (var_declaration (primitive_type) (identifier) (boolean_literal))
+  (var_declaration (primitive_type) (identifier) (boolean_literal)))
+
+============================================
+Character literals
+============================================
+
+char a = 'a';
+char b = '\0';
+char c = '\t';
+char d = '\'';
+char e = 'b';
+char f = 'c';
+char g = '\xa1';
+char h = '\x1A';
+char i = '\u1A4F';
+char j = '\U1A4F2D5B';
+
+---
+
+(source_file
+  (var_declaration (primitive_type) (identifier) (char_literal))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal))
+  (var_declaration (primitive_type) (identifier) (char_literal))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
+  (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence))))
+
+============================================
+String literals
+============================================
+
+const char* a = "a";
+char* b = "\"hi\"";
+const char* c = "bonjour";
+char* d = "guten morgen";
+char* e = "buenos dias";
+char* f = "buongiorno";
+const char* g = `testing this now`;
+const char* h = """
+    <html>
+      <body>
+        <p>Hello World</p>
+      </body>
+    </html>
+    """;
+
+---
+
+(source_file
+  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration
+    (pointer_type (primitive_type))
+    (identifier)
+    (string_literal (escape_sequence) (escape_sequence)))
+  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal)))
+
+============================================
+Assignment expressions
+============================================
+
+x = y;
+x += 1;
+x += y;
+
+---
+
+(source_file
+  (assignment_expression
+    left: (identifier)
+    right: (identifier))
+  (assignment_expression
+    left: (identifier)
+    right: (integer_literal))
+  (assignment_expression
+    left: (identifier)
+    right: (identifier)))
