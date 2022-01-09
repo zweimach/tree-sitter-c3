@@ -33,19 +33,21 @@ module.exports = grammar({
 
   conflicts: ($) => [[$._type_identifier, $._expression]],
 
+  word: ($) => $.identifier,
+
   rules: {
     source_file: ($) => repeat($._statement),
 
     _statement: ($) =>
       choice(
         $._empty_statement,
-        $._expression_statement,
+        $.expression_statement,
         $._declaration_statement
       ),
 
     _empty_statement: ($) => ";",
 
-    _expression_statement: ($) => seq($._expression, ";"),
+    expression_statement: ($) => seq($._expression, ";"),
 
     _declaration_statement: ($) =>
       choice($.const_declaration, $.var_declaration),
@@ -57,6 +59,7 @@ module.exports = grammar({
         $._literal,
         $.assignment_expression,
         $.unary_expression,
+        $.binary_expression,
         prec.left($.identifier)
       ),
 
@@ -184,10 +187,45 @@ module.exports = grammar({
       ),
 
     _postfix_expression: ($) =>
-      prec(
-        PREC.postfix,
-        seq($._expression, choice("-", "*", "!", "~", "&", "@"))
-      ),
+      prec(PREC.postfix, seq($._expression, choice("++", "--"))),
+
+    binary_expression: ($) => {
+      /** @type {[string, number][]} */
+      const table = [
+        ["+", PREC.additive],
+        ["-", PREC.additive],
+        ["*", PREC.multiplicative],
+        ["/", PREC.multiplicative],
+        ["%", PREC.multiplicative],
+        ["*%", PREC.multiplicative],
+        ["||", PREC.or],
+        ["&&", PREC.and],
+        ["|", PREC.bitwise],
+        ["^", PREC.bitwise],
+        ["&", PREC.bitwise],
+        ["==", PREC.comparative],
+        ["!=", PREC.comparative],
+        [">", PREC.comparative],
+        [">=", PREC.comparative],
+        ["<=", PREC.comparative],
+        ["<", PREC.comparative],
+        ["<<", PREC.shift],
+        [">>", PREC.shift],
+      ];
+
+      return choice(
+        ...table.map(([operator, precedence]) => {
+          return prec.left(
+            precedence,
+            seq(
+              field("left", $._expression),
+              field("operator", operator),
+              field("right", $._expression)
+            )
+          );
+        })
+      );
+    },
 
     // Types
 

@@ -172,16 +172,24 @@ Assignment expressions
 x = y;
 x += 1;
 x += y;
+*s = &p;
 
 ---
 
 (source_file
-  (assignment_expression
-    left: (identifier)
-    right: (identifier))
-  (assignment_expression
-    left: (identifier)
-    right: (integer_literal))
-  (assignment_expression
-    left: (identifier)
-    right: (identifier)))
+  (expression_statement
+    (assignment_expression
+      left: (identifier)
+      right: (identifier)))
+  (expression_statement
+    (assignment_expression
+      left: (identifier)
+      right: (integer_literal)))
+  (expression_statement
+    (assignment_expression
+      left: (identifier)
+      right: (identifier)))
+  (expression_statement
+    (assignment_expression
+      left: (unary_expression (identifier))
+      right: (unary_expression (identifier)))))
