@@ -102,9 +102,9 @@ bool b = false;
   (var_declaration (primitive_type) (identifier) (boolean_literal))
   (var_declaration (primitive_type) (identifier) (boolean_literal)))
 
-============================================
+================================================================================
 Character literals
-============================================
+================================================================================
 
 char a = 'a';
 char b = '\0';
@@ -131,9 +131,9 @@ char j = '\U1A4F2D5B';
   (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence)))
   (var_declaration (primitive_type) (identifier) (char_literal (escape_sequence))))
 
-============================================
+================================================================================
 String literals
-============================================
+================================================================================
 
 const char* a = "a";
 char* b = "\"hi\"";
@@ -165,9 +165,9 @@ const char* h = """
   (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
   (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal)))
 
-============================================
+================================================================================
 Assignment expressions
-============================================
+================================================================================
 
 x = y;
 x += 1;
@@ -193,3 +193,66 @@ x += y;
     (assignment_expression
       left: (unary_expression (identifier))
       right: (unary_expression (identifier)))))
+
+================================================================================
+Unary expressions
+================================================================================
+
+-a;
+!b;
+*c;
+&d;
+&&12;
+
+---
+
+(source_file
+  (expression_statement
+    (unary_expression
+      (identifier)))
+  (expression_statement
+    (unary_expression
+      (identifier)))
+  (expression_statement
+    (unary_expression
+      (identifier)))
+  (expression_statement
+    (unary_expression
+      (identifier)))
+  (expression_statement
+    (unary_expression
+      (integer_literal))))
+
+================================================================================
+Binary expressions
+================================================================================
+
+a - a;
+!b && c;
+c || !b;
+12 + 12;
+100 * d;
+
+---
+
+(source_file
+  (expression_statement
+    (binary_expression
+      left: (identifier)
+      right: (identifier)))
+  (expression_statement
+    (binary_expression
+      left: (unary_expression (identifier))
+      right: (identifier)))
+  (expression_statement
+    (binary_expression
+      left: (identifier)
+      right: (unary_expression (identifier))))
+  (expression_statement
+    (binary_expression
+      left: (integer_literal)
+      right: (integer_literal)))
+  (expression_statement
+    (binary_expression
+      left: (integer_literal)
+      right: (identifier))))
