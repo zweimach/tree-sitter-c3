@@ -1,0 +1,73 @@
+================================================================================
+Function declarations
+================================================================================
+
+fn int! main(int argc, char** argv) {
+    int ret = 0;
+    return ret;
+}
+
+fn int add(int x, int y) @inline {
+    return x + y;
+}
+
+extern fn void printf(char* str, ...);
+
+extern fn int sum(int... ints);
+
+---
+
+(source_file
+  (function_declaration
+    (failable_type
+      (primitive_type))
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier))
+      (parameter
+        (pointer_type
+          (pointer_type
+            (primitive_type)))
+        (identifier)))
+    (compound_statement
+      (var_declaration
+        (primitive_type)
+        (identifier)
+        (integer_literal))
+      (return_statement
+        (identifier))))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier))
+      (parameter
+        (primitive_type)
+        (identifier)))
+    (attribute_list
+      (identifier))
+    (compound_statement
+      (return_statement
+        (binary_expression
+          (identifier)
+          (identifier)))))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameter_list
+      (parameter
+        (pointer_type
+          (primitive_type))
+        (identifier))
+      (variadic_parameter)))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameter_list
+      (variadic_parameter
+        (primitive_type)
+        (identifier)))))

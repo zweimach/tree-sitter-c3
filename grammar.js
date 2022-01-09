@@ -42,7 +42,8 @@ module.exports = grammar({
       choice(
         $._empty_statement,
         $.expression_statement,
-        $._declaration_statement
+        $._declaration_statement,
+        $.return_statement
       ),
 
     _empty_statement: ($) => ";",
@@ -50,7 +51,9 @@ module.exports = grammar({
     expression_statement: ($) => seq($._expression, ";"),
 
     _declaration_statement: ($) =>
-      choice($.const_declaration, $.var_declaration),
+      choice($.function_declaration, $.const_declaration, $.var_declaration),
+
+    return_statement: ($) => seq("return", optional($._expression), ";"),
 
     // Expressions
 
@@ -229,9 +232,15 @@ module.exports = grammar({
 
     // Types
 
-    _type: ($) => choice($.primitive_type, $._type_identifier, $.pointer_type),
+    _type: ($) =>
+      choice(
+        $.primitive_type,
+        $._type_identifier,
+        $.pointer_type,
+        $.failable_type
+      ),
 
-    primitive_type: ($) => choice($._integer_type, $._float_type),
+    primitive_type: ($) => choice($._integer_type, $._float_type, "void"),
 
     _integer_type: ($) =>
       choice(
@@ -258,7 +267,36 @@ module.exports = grammar({
 
     pointer_type: ($) => prec.left(seq($._type, "*")),
 
+    failable_type: ($) => prec.left(seq($._type, "!")),
+
     // Declarations
+
+    function_declaration: ($) =>
+      choice(
+        seq("extern", $._function_signature, ";"),
+        seq($._function_signature, field("body", $.compound_statement))
+      ),
+
+    _function_signature: ($) =>
+      seq(
+        "fn",
+        field("return_type", $._type),
+        field("name", $.identifier),
+        optional(field("parameters", $.parameter_list)),
+        optional(field("attributes", $.attribute_list))
+      ),
+
+    compound_statement: ($) => seq("{", repeat($._statement), "}"),
+
+    parameter_list: ($) =>
+      seq("(", commaSep(choice($.parameter, $.variadic_parameter)), ")"),
+
+    parameter: ($) => choice($._type, seq($._type, $.identifier)),
+
+    variadic_parameter: ($) => choice("...", seq($._type, "...", $.identifier)),
+
+    attribute_list: ($) =>
+      seq("@", $.identifier, optional(seq("(", $._expression, ")"))),
 
     const_declaration: ($) =>
       seq(
@@ -289,3 +327,19 @@ module.exports = grammar({
       ),
   },
 });
+
+/**
+ * @param {RuleOrLiteral} rule
+ * @returns {ChoiceRule}
+ */
+function commaSep(rule) {
+  return optional(commaSep1(rule));
+}
+
+/**
+ * @param {RuleOrLiteral} rule
+ * @returns {SeqRule}
+ */
+function commaSep1(rule) {
+  return seq(rule, repeat(seq(",", rule)));
+}
