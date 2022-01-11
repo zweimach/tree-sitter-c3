@@ -74,6 +74,8 @@ module.exports = grammar({
         $.unary_expression,
         $.binary_expression,
         $.range_expression,
+        $.subscript_expression,
+        $.call_expression,
         $.field_expression,
         prec.left($.identifier)
       ),
@@ -251,6 +253,30 @@ module.exports = grammar({
 
     range_expression: ($) =>
       prec.left(seq(optional($._expression), "..", optional($._expression))),
+
+    subscript_expression: ($) =>
+      prec(
+        PREC.postfix,
+        seq(
+          field("value", $._expression),
+          "[",
+          field("index", $._expression),
+          "]"
+        )
+      ),
+
+    call_expression: ($) =>
+      prec(
+        PREC.postfix,
+        seq(
+          field("function", $._expression),
+          field("arguments", choice($.argument_list, $._argument_list))
+        )
+      ),
+
+    _argument_list: ($) => token(seq("(", ")")),
+
+    argument_list: ($) => seq("(", commaSep($._expression), ")"),
 
     field_expression: ($) =>
       seq(
