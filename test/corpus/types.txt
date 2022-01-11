@@ -1,0 +1,72 @@
+========================================
+Primitive types
+========================================
+
+int a;
+char a;
+ushort a;
+uint a;
+ulong a;
+uptr a;
+uptrdiff a;
+
+ichar a;
+short a;
+int a;
+long a;
+iptr a;
+iptrdiff a;
+
+isize a;
+usize a;
+
+---
+
+(source_file
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier))
+  (var_declaration (primitive_type) (identifier)))
+
+========================================
+Array types
+========================================
+
+int[*] a = { 1, 2, 3, 4, 5 };
+int[5] a = { 1, 2, 3, 4, 5 };
+
+---
+
+(source_file
+  (var_declaration
+    (array_type
+      (primitive_type))
+    (identifier)
+    (initializer_list
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)))
+  (var_declaration
+    (array_type
+      (primitive_type)
+      (integer_literal))
+    (identifier)
+    (initializer_list
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal)
+      (integer_literal))))
