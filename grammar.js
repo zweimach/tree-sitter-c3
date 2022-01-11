@@ -58,6 +58,8 @@ module.exports = grammar({
         $.function_declaration,
         $.const_declaration,
         $.var_declaration,
+        $.struct_declaration,
+        $.union_declaration,
         $.enum_declaration
       ),
 
@@ -340,6 +342,50 @@ module.exports = grammar({
         "=",
         field("value", $._initializer),
         ";"
+      ),
+
+    struct_declaration: ($) => seq("struct", $._struct_declaration),
+
+    union_declaration: ($) => seq("union", $._struct_declaration),
+
+    _struct_declaration: ($) =>
+      seq(
+        field("name", $._type_identifier),
+        field("attributes", optional($.attribute_list)),
+        field("body", $.field_declaration_list)
+      ),
+
+    field_declaration_list: ($) =>
+      seq(
+        "{",
+        repeat(
+          choice(
+            $.field_declaration,
+            $.field_struct_declaration,
+            $.field_union_declaration
+          )
+        ),
+        "}"
+      ),
+
+    field_declaration: ($) =>
+      seq(
+        optional("inline"),
+        field("type", $._type),
+        field("name", $.identifier),
+        field("attributes", optional($.attribute_list)),
+        ";"
+      ),
+
+    field_struct_declaration: ($) => seq("struct", $._field_struct_declaration),
+
+    field_union_declaration: ($) => seq("union", $._field_struct_declaration),
+
+    _field_struct_declaration: ($) =>
+      seq(
+        field("name", optional($.identifier)),
+        field("attributes", optional($.attribute_list)),
+        field("body", $.field_declaration_list)
       ),
 
     enum_declaration: ($) =>

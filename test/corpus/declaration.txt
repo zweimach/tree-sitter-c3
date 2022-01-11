@@ -94,6 +94,89 @@ extern fn int sum(int... ints);
         (identifier)))))
 
 ================================================================================
+Struct declarations
+================================================================================
+
+struct Person {
+    char age;
+    char* name;
+}
+
+struct Player @packed {
+    inline Person p;
+    char* name;
+    uint health @aligned;
+}
+
+---
+
+(source_file
+  (struct_declaration
+    (type_identifier)
+    (field_declaration_list
+      (field_declaration
+        (primitive_type)
+        (identifier))
+      (field_declaration
+        (pointer_type
+          (primitive_type))
+        (identifier))))
+  (struct_declaration
+    (type_identifier)
+    (attribute_list
+      (attribute
+        (identifier)))
+    (field_declaration_list
+      (field_declaration
+        (type_identifier)
+        (identifier))
+      (field_declaration
+        (pointer_type
+          (primitive_type))
+        (identifier))
+      (field_declaration
+        (primitive_type)
+        (identifier)
+        (attribute_list
+          (attribute
+            (identifier)))))))
+
+============================================
+Union declarations
+============================================
+
+union S {
+    int x;
+    float y;
+    struct p {
+        int z;
+        float a;
+    }
+}
+
+---
+
+(source_file
+  (union_declaration
+    (type_identifier)
+    (field_declaration_list
+      (field_declaration
+        (primitive_type)
+        (identifier))
+      (field_declaration
+        (primitive_type)
+        (identifier))
+      (field_struct_declaration
+        (identifier)
+        (field_declaration_list
+          (field_declaration
+            (primitive_type)
+            (identifier))
+          (field_declaration
+            (primitive_type)
+            (identifier)))))))
+
+================================================================================
 Enum declarations
 ================================================================================
 
