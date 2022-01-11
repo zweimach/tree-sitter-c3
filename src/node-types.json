@@ -489,6 +489,10 @@
           "named": true
         },
         {
+          "type": "initializer_list",
+          "named": true
+        },
+        {
           "type": "integer_literal",
           "named": true
         },
@@ -654,6 +658,57 @@
     }
   },
   {
+    "type": "initializer_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "char_literal",
+          "named": true
+        },
+        {
+          "type": "float_literal",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "nil_literal",
+          "named": true
+        },
+        {
+          "type": "string_literal",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parameter",
     "named": true,
     "fields": {},
@@ -662,11 +717,43 @@
       "required": true,
       "types": [
         {
+          "type": "assignment_expression",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean_literal",
+          "named": true
+        },
+        {
+          "type": "char_literal",
+          "named": true
+        },
+        {
           "type": "failable_type",
           "named": true
         },
         {
+          "type": "float_literal",
+          "named": true
+        },
+        {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "initializer_list",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        },
+        {
+          "type": "nil_literal",
           "named": true
         },
         {
@@ -678,7 +765,15 @@
           "named": true
         },
         {
+          "type": "string_literal",
+          "named": true
+        },
+        {
           "type": "type_identifier",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
           "named": true
         }
       ]
@@ -813,6 +908,10 @@
         {
           "type": "var_declaration",
           "named": true
+        },
+        {
+          "type": "visiblitiy_modifier",
+          "named": true
         }
       ]
     }
@@ -938,6 +1037,10 @@
             "named": true
           },
           {
+            "type": "initializer_list",
+            "named": true
+          },
+          {
             "type": "integer_literal",
             "named": true
           },
@@ -997,6 +1100,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "visiblitiy_modifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "!",
@@ -1245,6 +1353,10 @@
   {
     "type": "nil_literal",
     "named": true
+  },
+  {
+    "type": "private",
+    "named": false
   },
   {
     "type": "quad",

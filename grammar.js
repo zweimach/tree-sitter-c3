@@ -36,7 +36,10 @@ module.exports = grammar({
   word: ($) => $.identifier,
 
   rules: {
-    source_file: ($) => repeat($._statement),
+    source_file: ($) => repeat($._top_level_item),
+
+    _top_level_item: ($) =>
+      seq(optional($.visiblitiy_modifier), choice($._statement)),
 
     _statement: ($) =>
       choice(
@@ -67,6 +70,13 @@ module.exports = grammar({
       ),
 
     identifier: ($) => /[a-zA-Z_]\w*/,
+
+    visiblitiy_modifier: ($) => choice("private"),
+
+    _initializer: ($) => choice($._expression, $.initializer_list),
+
+    initializer_list: ($) =>
+      seq("{", commaSep($._expression), optional(","), "}"),
 
     _literal: ($) =>
       choice(
@@ -291,7 +301,11 @@ module.exports = grammar({
     parameter_list: ($) =>
       seq("(", commaSep(choice($.parameter, $.variadic_parameter)), ")"),
 
-    parameter: ($) => choice($._type, seq($._type, $.identifier)),
+    parameter: ($) =>
+      seq(
+        $._type,
+        optional(seq($.identifier, optional(seq("=", $._initializer))))
+      ),
 
     variadic_parameter: ($) => choice("...", seq($._type, "...", $.identifier)),
 
@@ -304,7 +318,7 @@ module.exports = grammar({
         optional(field("type", $._type)),
         $.identifier,
         "=",
-        $._expression,
+        $._initializer,
         ";"
       ),
 
@@ -313,7 +327,7 @@ module.exports = grammar({
         field("type", $._type),
         $.identifier,
         "=",
-        field("value", $._expression),
+        field("value", $._initializer),
         ";"
       ),
 

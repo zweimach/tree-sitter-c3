@@ -11,6 +11,10 @@ fn int add(int x, int y) @inline {
     return x + y;
 }
 
+fn int multiply(int x, int y = 1) {
+    return x * y;
+}
+
 extern fn void printf(char* str, ...);
 
 extern fn int sum(int... ints);
@@ -50,6 +54,22 @@ extern fn int sum(int... ints);
         (identifier)))
     (attribute_list
       (identifier))
+    (compound_statement
+      (return_statement
+        (binary_expression
+          (identifier)
+          (identifier)))))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameter_list
+      (parameter
+        (primitive_type)
+        (identifier))
+      (parameter
+        (primitive_type)
+        (identifier)
+        (integer_literal)))
     (compound_statement
       (return_statement
         (binary_expression
