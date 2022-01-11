@@ -256,3 +256,70 @@ c || !b;
     (binary_expression
       left: (integer_literal)
       right: (identifier))))
+
+================================================================================
+Range expressions
+================================================================================
+
+1..2;
+3..;
+..4;
+..;
+
+---
+
+(source_file
+  (expression_statement
+    (range_expression
+      (integer_literal)
+      (integer_literal)))
+  (expression_statement
+    (range_expression
+      (integer_literal)))
+  (expression_statement
+    (range_expression
+      (integer_literal)))
+  (expression_statement
+    (range_expression)))
+
+================================================================================
+Field expressions
+================================================================================
+
+a.b;
+*a.b;
+&a.b;
+a.b.c;
+a.b.c.d;
+
+---
+
+(source_file
+  (expression_statement
+    (field_expression
+      (identifier)
+      (identifier)))
+  (expression_statement
+    (unary_expression
+      (field_expression
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (unary_expression
+      (field_expression
+        (identifier)
+        (identifier))))
+  (expression_statement
+    (field_expression
+      (field_expression
+        (identifier)
+        (identifier))
+      (identifier)))
+  (expression_statement
+    (field_expression
+      (field_expression
+        (field_expression
+          (identifier)
+          (identifier))
+        (identifier))
+      (identifier))))

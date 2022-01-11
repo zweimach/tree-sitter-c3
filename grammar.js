@@ -73,6 +73,8 @@ module.exports = grammar({
         $.assignment_expression,
         $.unary_expression,
         $.binary_expression,
+        $.range_expression,
+        $.field_expression,
         prec.left($.identifier)
       ),
 
@@ -246,6 +248,15 @@ module.exports = grammar({
         })
       );
     },
+
+    range_expression: ($) =>
+      prec.left(seq(optional($._expression), "..", optional($._expression))),
+
+    field_expression: ($) =>
+      seq(
+        field("value", prec(PREC.postfix, seq($._expression, "."))),
+        field("field", $.identifier)
+      ),
 
     // Types
 
