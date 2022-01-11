@@ -301,8 +301,8 @@ module.exports = grammar({
         "fn",
         field("return_type", $._type),
         field("name", $.identifier),
-        optional(field("parameters", $.parameter_list)),
-        optional(field("attributes", $.attribute_list))
+        field("parameters", optional($.parameter_list)),
+        field("attributes", optional($.attribute_list))
       ),
 
     compound_statement: ($) => seq("{", repeat($._statement), "}"),
@@ -318,7 +318,9 @@ module.exports = grammar({
 
     variadic_parameter: ($) => choice("...", seq($._type, "...", $.identifier)),
 
-    attribute_list: ($) =>
+    attribute_list: ($) => repeat1($.attribute),
+
+    attribute: ($) =>
       seq("@", $.identifier, optional(seq("(", $._expression, ")"))),
 
     const_declaration: ($) =>
@@ -345,7 +347,7 @@ module.exports = grammar({
         "enum",
         field("name", $._type_identifier),
         optional(seq(":", field("base_type", $._type))),
-        optional(field("attributes", $.attribute_list)),
+        field("attributes", optional($.attribute_list)),
         field("body", $.enumerator_list)
       ),
 

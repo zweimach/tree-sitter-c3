@@ -1778,36 +1778,36 @@
           }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "parameters",
-              "content": {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
                 "name": "parameter_list"
+              },
+              {
+                "type": "BLANK"
               }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+            ]
+          }
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "attributes",
-              "content": {
+          "type": "FIELD",
+          "name": "attributes",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
                 "name": "attribute_list"
+              },
+              {
+                "type": "BLANK"
               }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+            ]
+          }
         }
       ]
     },
@@ -1969,6 +1969,13 @@
       ]
     },
     "attribute_list": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "attribute"
+      }
+    },
+    "attribute": {
       "type": "SEQ",
       "members": [
         {
@@ -2121,20 +2128,20 @@
           ]
         },
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "FIELD",
-              "name": "attributes",
-              "content": {
+          "type": "FIELD",
+          "name": "attributes",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
                 "type": "SYMBOL",
                 "name": "attribute_list"
+              },
+              {
+                "type": "BLANK"
               }
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+            ]
+          }
         },
         {
           "type": "FIELD",

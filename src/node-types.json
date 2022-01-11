@@ -183,7 +183,7 @@
     }
   },
   {
-    "type": "attribute_list",
+    "type": "attribute",
     "named": true,
     "fields": {},
     "children": {
@@ -228,6 +228,21 @@
         },
         {
           "type": "unary_expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "attribute_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute",
           "named": true
         }
       ]

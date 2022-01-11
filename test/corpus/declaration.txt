@@ -53,7 +53,8 @@ extern fn int sum(int... ints);
         (primitive_type)
         (identifier)))
     (attribute_list
-      (identifier))
+      (attribute
+        (identifier)))
     (compound_statement
       (return_statement
         (binary_expression
@@ -107,13 +108,20 @@ enum State : int {
     TERMINATED,
 }
 
+enum TokenKind @packed @opaque {
+    KeywordKind,
+    OperatorKind,
+    FunctionKind,
+}
+
 ---
 
 (source_file
   (enum_declaration
     (type_identifier)
     (attribute_list
-      (identifier))
+      (attribute
+        (identifier)))
     (enumerator_list
       (enumerator
         (identifier))
@@ -126,6 +134,20 @@ enum State : int {
       (enumerator
         (identifier)
         (integer_literal))
+      (enumerator
+        (identifier))
+      (enumerator
+        (identifier))))
+  (enum_declaration
+    (type_identifier)
+    (attribute_list
+      (attribute
+        (identifier))
+      (attribute
+        (identifier)))
+    (enumerator_list
+      (enumerator
+        (identifier))
       (enumerator
         (identifier))
       (enumerator
