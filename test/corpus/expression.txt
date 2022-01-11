@@ -203,6 +203,7 @@ Unary expressions
 *c;
 &d;
 &&12;
+&(*(&(e)));
 
 ---
 
@@ -221,7 +222,15 @@ Unary expressions
       (identifier)))
   (expression_statement
     (unary_expression
-      (integer_literal))))
+      (integer_literal)))
+  (expression_statement
+    (unary_expression
+      (parenthesized_expression
+        (unary_expression
+          (parenthesized_expression
+            (unary_expression
+              (parenthesized_expression
+                (identifier)))))))))
 
 ================================================================================
 Binary expressions
@@ -232,6 +241,8 @@ a - a;
 c || !b;
 12 + 12;
 100 * d;
+2 * (10 + 4);
+(2) * (10 + (4 << 2));
 
 ---
 
@@ -255,7 +266,25 @@ c || !b;
   (expression_statement
     (binary_expression
       left: (integer_literal)
-      right: (identifier))))
+      right: (identifier)))
+  (expression_statement
+    (binary_expression
+      left: (integer_literal)
+      right: (parenthesized_expression
+        (binary_expression
+          left: (integer_literal)
+          right: (integer_literal)))))
+  (expression_statement
+    (binary_expression
+      left: (parenthesized_expression
+        (integer_literal))
+      right: (parenthesized_expression
+        (binary_expression
+          left: (integer_literal)
+          right: (parenthesized_expression
+            (binary_expression
+              left: (integer_literal)
+              right: (integer_literal))))))))
 
 ================================================================================
 Range expressions

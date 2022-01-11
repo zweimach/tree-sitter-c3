@@ -73,6 +73,7 @@ module.exports = grammar({
         $.assignment_expression,
         $.unary_expression,
         $.binary_expression,
+        $.parenthesized_expression,
         $.range_expression,
         $.subscript_expression,
         $.call_expression,
@@ -250,6 +251,8 @@ module.exports = grammar({
         })
       );
     },
+
+    parenthesized_expression: ($) => seq("(", choice($._expression), ")"),
 
     range_expression: ($) =>
       prec.left(seq(optional($._expression), "..", optional($._expression))),
