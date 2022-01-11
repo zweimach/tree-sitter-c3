@@ -54,7 +54,12 @@ module.exports = grammar({
     expression_statement: ($) => seq($._expression, ";"),
 
     _declaration_statement: ($) =>
-      choice($.function_declaration, $.const_declaration, $.var_declaration),
+      choice(
+        $.function_declaration,
+        $.const_declaration,
+        $.var_declaration,
+        $.enum_declaration
+      ),
 
     return_statement: ($) => seq("return", optional($._expression), ";"),
 
@@ -247,7 +252,8 @@ module.exports = grammar({
         $.primitive_type,
         $._type_identifier,
         $.pointer_type,
-        $.failable_type
+        $.failable_type,
+        $.array_type
       ),
 
     primitive_type: ($) => choice($._integer_type, $._float_type, "void"),
@@ -278,6 +284,9 @@ module.exports = grammar({
     pointer_type: ($) => prec.left(seq($._type, "*")),
 
     failable_type: ($) => prec.left(seq($._type, "!")),
+
+    array_type: ($) =>
+      prec.left(seq($._type, "[", optional(choice(token(/[0-9]+/), "*")), "]")),
 
     // Declarations
 
@@ -329,6 +338,24 @@ module.exports = grammar({
         "=",
         field("value", $._initializer),
         ";"
+      ),
+
+    enum_declaration: ($) =>
+      seq(
+        "enum",
+        field("name", $._type_identifier),
+        optional(seq(":", field("base_type", $._type))),
+        optional(field("attributes", $.attribute_list)),
+        field("body", $.enumerator_list)
+      ),
+
+    enumerator_list: ($) =>
+      seq("{", commaSep($.enumerator), optional(","), "}"),
+
+    enumerator: ($) =>
+      seq(
+        field("name", $.identifier),
+        optional(seq("=", field("value", $._expression)))
       ),
 
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890

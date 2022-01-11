@@ -91,3 +91,42 @@ extern fn int sum(int... ints);
       (variadic_parameter
         (primitive_type)
         (identifier)))))
+
+================================================================================
+Enum declarations
+================================================================================
+
+enum OptionTag @packed {
+    SOME,
+    NONE,
+}
+
+enum State : int {
+    PENDING = 0,
+    RUNNING,
+    TERMINATED,
+}
+
+---
+
+(source_file
+  (enum_declaration
+    (type_identifier)
+    (attribute_list
+      (identifier))
+    (enumerator_list
+      (enumerator
+        (identifier))
+      (enumerator
+        (identifier))))
+  (enum_declaration
+    (type_identifier)
+    (primitive_type)
+    (enumerator_list
+      (enumerator
+        (identifier)
+        (integer_literal))
+      (enumerator
+        (identifier))
+      (enumerator
+        (identifier)))))
