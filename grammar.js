@@ -328,7 +328,9 @@ module.exports = grammar({
     failable_type: ($) => prec.left(seq($._type, "!")),
 
     array_type: ($) =>
-      prec.left(seq($._type, "[", optional(choice(token(/[0-9]+/), "*")), "]")),
+      prec.left(
+        seq($._type, "[", optional(choice($.integer_literal, "*")), "]")
+      ),
 
     // Declarations
 
@@ -379,8 +381,7 @@ module.exports = grammar({
       seq(
         field("type", $._type),
         $.identifier,
-        "=",
-        field("value", $._initializer),
+        optional(seq("=", field("value", $._initializer))),
         ";"
       ),
 
