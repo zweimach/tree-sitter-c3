@@ -31,12 +31,7 @@ module.exports = grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
-  conflicts: ($) => [
-    [$._type_identifier, $._expression],
-    [$._type_identifier, $.scoped_identifier],
-    [$._path, $.scoped_identifier],
-    [$._argument_list, $.argument_list],
-  ],
+  conflicts: ($) => [[$._argument_list, $.argument_list]],
 
   word: ($) => $.identifier,
 
@@ -54,7 +49,7 @@ module.exports = grammar({
         field("parameters", optional($.generic_parameter_list))
       ),
 
-    generic_parameter_list: ($) => seq("<", commaSep($._type_identifier), ">"),
+    generic_parameter_list: ($) => seq("<", commaSep($._type), ">"),
 
     _top_level_item: ($) =>
       seq(optional($.visiblitiy_modifier), choice($._statement)),
@@ -80,6 +75,7 @@ module.exports = grammar({
         $.function_declaration,
         $.const_declaration,
         $.var_declaration,
+        $.define_declaration,
         $.struct_declaration,
         $.union_declaration,
         $.enum_declaration
@@ -102,6 +98,24 @@ module.exports = grammar({
         )
       ),
 
+    // Identifiers
+
+    _path: ($) => choice($.scoped_identifier, $.identifier),
+
+    _type_path: ($) => choice($.scoped_type_identifier, $.type_identifier),
+
+    identifier: ($) => /[a-z_]\w*/,
+
+    scoped_identifier: ($) =>
+      seq(field("path", $._path), "::", field("name", $.identifier)),
+
+    type_identifier: ($) => /_?[A-Z]\w*/,
+
+    scoped_type_identifier: ($) =>
+      seq(field("path", $._path), "::", field("type", $.type_identifier)),
+
+    const_identifier: ($) => /_?[A-Z][A-Z0-9_]*/,
+
     // Expressions
 
     _expression: ($) =>
@@ -118,13 +132,6 @@ module.exports = grammar({
         $.identifier,
         $.scoped_identifier
       ),
-
-    _path: ($) => choice($.scoped_identifier, $.identifier),
-
-    identifier: ($) => /[a-zA-Z_]\w*/,
-
-    scoped_identifier: ($) =>
-      seq(field("path", $._path), "::", field("name", $.identifier)),
 
     visiblitiy_modifier: ($) => choice("private"),
 
@@ -335,15 +342,12 @@ module.exports = grammar({
     _type: ($) =>
       choice(
         $.primitive_type,
-        $._type_identifier,
+        $.type_identifier,
         $.pointer_type,
         $.failable_type,
         $.array_type,
         $.scoped_type_identifier
       ),
-
-    scoped_type_identifier: ($) =>
-      seq(field("path", $._path), "::", field("type", $._type_identifier)),
 
     primitive_type: ($) => choice($._integer_type, $._float_type, "void"),
 
@@ -367,8 +371,6 @@ module.exports = grammar({
       ),
 
     _float_type: ($) => choice("half", "float", "double", "quad"),
-
-    _type_identifier: ($) => alias($.identifier, $.type_identifier),
 
     pointer_type: ($) => prec.dynamic(1, prec.right(seq($._type, "*"))),
 
@@ -417,7 +419,7 @@ module.exports = grammar({
     const_declaration: ($) =>
       seq(
         "const",
-        optional(field("type", $._type)),
+        field("type", optional($._type)),
         $.identifier,
         "=",
         $._initializer,
@@ -432,13 +434,25 @@ module.exports = grammar({
         ";"
       ),
 
+    define_declaration: ($) =>
+      seq(
+        "define",
+        choice(
+          seq($.identifier, "=", $._path),
+          seq($.identifier, "=", $._path, $.generic_parameter_list),
+          seq($.type_identifier, "=", optional("distinct"), $._type),
+          seq($.type_identifier, "=", $._type_path, $.generic_parameter_list)
+        ),
+        ";"
+      ),
+
     struct_declaration: ($) => seq("struct", $._struct_declaration),
 
     union_declaration: ($) => seq("union", $._struct_declaration),
 
     _struct_declaration: ($) =>
       seq(
-        field("name", $._type_identifier),
+        field("name", $.type_identifier),
         field("attributes", optional($.attribute_list)),
         field("body", $.field_declaration_list)
       ),
@@ -479,7 +493,7 @@ module.exports = grammar({
     enum_declaration: ($) =>
       seq(
         "enum",
-        field("name", $._type_identifier),
+        field("name", $.type_identifier),
         optional(seq(":", field("base_type", $._type))),
         field("attributes", optional($.attribute_list)),
         field("body", $.enumerator_list)
@@ -490,7 +504,7 @@ module.exports = grammar({
 
     enumerator: ($) =>
       seq(
-        field("name", $.identifier),
+        field("name", $.const_identifier),
         optional(seq("=", field("value", $._expression)))
       ),
 

@@ -139,6 +139,68 @@ import std::data::json;
       (identifier))))
 
 ================================================================================
+Define declarations
+================================================================================
+
+define CharPtr = char*;
+define Numbers = int[10];
+define Foo = distinct int;
+define bar = foo;
+define bar_var = foo_var;
+define BarFoo = bar::Foo;
+define bar_foo = bar::foo;
+define FooFloat = foo_test::Foo<float, double>;
+define testFloat = foo_test::test<float, double>;
+
+---
+
+(source_file
+  (define_declaration
+    (type_identifier)
+    (pointer_type
+      (primitive_type)))
+  (define_declaration
+    (type_identifier)
+    (array_type
+      (primitive_type)
+      (integer_literal)))
+  (define_declaration
+    (type_identifier)
+    (primitive_type))
+  (define_declaration
+    (identifier)
+    (identifier))
+  (define_declaration
+    (identifier)
+    (identifier))
+  (define_declaration
+    (type_identifier)
+    (scoped_type_identifier
+      (identifier)
+      (type_identifier)))
+  (define_declaration
+    (identifier)
+    (scoped_identifier
+      (identifier)
+      (identifier)))
+  (define_declaration
+    (type_identifier)
+    (scoped_type_identifier
+      (identifier)
+      (type_identifier))
+    (generic_parameter_list
+      (primitive_type)
+      (primitive_type)))
+  (define_declaration
+    (identifier)
+    (scoped_identifier
+      (identifier)
+      (identifier))
+    (generic_parameter_list
+      (primitive_type)
+      (primitive_type))))
+
+================================================================================
 Function declarations
 ================================================================================
 
@@ -332,9 +394,9 @@ enum State : int {
 }
 
 enum TokenKind @packed @opaque {
-    KeywordKind,
-    OperatorKind,
-    FunctionKind,
+    KEYWORD,
+    OPERATOR,
+    FUNCTION,
 }
 
 ---
@@ -347,20 +409,20 @@ enum TokenKind @packed @opaque {
         (identifier)))
     (enumerator_list
       (enumerator
-        (identifier))
+        (const_identifier))
       (enumerator
-        (identifier))))
+        (const_identifier))))
   (enum_declaration
     (type_identifier)
     (primitive_type)
     (enumerator_list
       (enumerator
-        (identifier)
+        (const_identifier)
         (integer_literal))
       (enumerator
-        (identifier))
+        (const_identifier))
       (enumerator
-        (identifier))))
+        (const_identifier))))
   (enum_declaration
     (type_identifier)
     (attribute_list
@@ -370,8 +432,8 @@ enum TokenKind @packed @opaque {
         (identifier)))
     (enumerator_list
       (enumerator
-        (identifier))
+        (const_identifier))
       (enumerator
-        (identifier))
+        (const_identifier))
       (enumerator
-        (identifier)))))
+        (const_identifier)))))

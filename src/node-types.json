@@ -758,6 +758,10 @@
           "named": true
         },
         {
+          "type": "define_declaration",
+          "named": true
+        },
+        {
           "type": "enum_declaration",
           "named": true
         },
@@ -907,6 +911,53 @@
     }
   },
   {
+    "type": "define_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "failable_type",
+          "named": true
+        },
+        {
+          "type": "generic_parameter_list",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "scoped_identifier",
+          "named": true
+        },
+        {
+          "type": "scoped_type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "enum_declaration",
     "named": true,
     "fields": {
@@ -981,7 +1032,7 @@
         "required": true,
         "types": [
           {
-            "type": "identifier",
+            "type": "const_identifier",
             "named": true
           }
         ]
@@ -1509,6 +1560,26 @@
       "required": false,
       "types": [
         {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "failable_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "scoped_type_identifier",
+          "named": true
+        },
+        {
           "type": "type_identifier",
           "named": true
         }
@@ -1533,6 +1604,10 @@
           },
           {
             "type": "const_declaration",
+            "named": true
+          },
+          {
+            "type": "define_declaration",
             "named": true
           },
           {
@@ -1601,6 +1676,10 @@
           },
           {
             "type": "const_declaration",
+            "named": true
+          },
+          {
+            "type": "define_declaration",
             "named": true
           },
           {
@@ -2235,6 +2314,10 @@
       "types": [
         {
           "type": "const_declaration",
+          "named": true
+        },
+        {
+          "type": "define_declaration",
           "named": true
         },
         {
@@ -2954,6 +3037,18 @@
   },
   {
     "type": "const",
+    "named": false
+  },
+  {
+    "type": "const_identifier",
+    "named": true
+  },
+  {
+    "type": "define",
+    "named": false
+  },
+  {
+    "type": "distinct",
     "named": false
   },
   {
