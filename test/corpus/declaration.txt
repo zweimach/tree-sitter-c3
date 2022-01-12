@@ -36,6 +36,83 @@ fn void main() {
               (escape_sequence))))))))
 
 ================================================================================
+Generic module declarations
+================================================================================
+
+module foo_test::mod <Type1, Type2>;
+
+import std::mem;
+
+struct Foo
+{
+   Type1 a;
+}
+
+fn Type2 test(Type2 b, Foo *foo)
+{
+   return foo.a + b;
+}
+
+struct Stack
+{
+    usize capacity;
+    usize size;
+    Type1* elems;
+}
+
+---
+
+(source_file
+  module: (module_declaration
+    name: (scoped_identifier
+      path: (identifier)
+      name: (identifier))
+    parameters: (generic_parameter_list
+      (type_identifier)
+      (type_identifier)))
+  (import_declaration
+    (scoped_identifier
+      path: (identifier)
+      name: (identifier)))
+  (struct_declaration
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        type: (type_identifier)
+        name: (identifier))))
+  (function_declaration
+    return_type: (type_identifier)
+    name: (identifier)
+    parameters: (parameter_list
+      (parameter
+        (type_identifier)
+        (identifier))
+      (parameter
+        (pointer_type
+          (type_identifier))
+        (identifier)))
+    body: (compound_statement
+      (return_statement
+        (binary_expression
+          left: (field_expression
+            value: (identifier)
+            field: (identifier))
+          right: (identifier)))))
+  (struct_declaration
+    name: (type_identifier)
+    body: (field_declaration_list
+      (field_declaration
+        type: (primitive_type)
+        name: (identifier))
+      (field_declaration
+        type: (primitive_type)
+        name: (identifier))
+      (field_declaration
+        type: (pointer_type
+          (type_identifier))
+        name: (identifier)))))
+
+================================================================================
 Import declarations
 ================================================================================
 

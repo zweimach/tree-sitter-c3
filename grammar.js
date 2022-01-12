@@ -42,19 +42,32 @@ module.exports = grammar({
 
   rules: {
     source_file: ($) =>
-      seq(optional($.module_declaration), repeat($._top_level_item)),
+      seq(
+        field("module", optional($.module_declaration)),
+        repeat($._top_level_item)
+      ),
 
-    module_declaration: ($) => seq("module", $._path),
+    module_declaration: ($) =>
+      seq(
+        "module",
+        field("name", $._path),
+        field("parameters", optional($.generic_parameter_list))
+      ),
+
+    generic_parameter_list: ($) => seq("<", commaSep($._type_identifier), ">"),
 
     _top_level_item: ($) =>
       seq(optional($.visiblitiy_modifier), choice($._statement)),
+
+    // Statements
 
     _statement: ($) =>
       choice(
         $._empty_statement,
         $.expression_statement,
         $._declaration_statement,
-        $.return_statement
+        $.return_statement,
+        $.if_statement
       ),
 
     _empty_statement: ($) => ";",
@@ -75,6 +88,19 @@ module.exports = grammar({
     import_declaration: ($) => seq("import", $._path),
 
     return_statement: ($) => seq("return", optional($._expression), ";"),
+
+    if_statement: ($) =>
+      prec.left(
+        seq(
+          "if",
+          field("condition", $.parenthesized_expression),
+          field("consecuence", choice($._statement, $.compound_statement)),
+          field(
+            "alternative",
+            optional(seq("else", choice($._statement, $.compound_statement)))
+          )
+        )
+      ),
 
     // Expressions
 

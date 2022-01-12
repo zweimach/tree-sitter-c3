@@ -1,0 +1,59 @@
+================================================================================
+If statement
+================================================================================
+
+if (true) false;
+if (1) {
+    0;
+}
+if (true) {
+    0;
+} else {
+    1;
+}
+if (a) {
+    0;
+} else if (b) {
+    1;
+} else {
+    2;
+}
+
+---
+
+(source_file
+  (if_statement
+    (parenthesized_expression
+      (boolean_literal))
+    (expression_statement
+      (boolean_literal)))
+  (if_statement
+    (parenthesized_expression
+      (integer_literal))
+    (compound_statement
+      (expression_statement
+        (integer_literal))))
+  (if_statement
+    (parenthesized_expression
+      (boolean_literal))
+    (compound_statement
+      (expression_statement
+        (integer_literal)))
+    (compound_statement
+      (expression_statement
+        (integer_literal))))
+  (if_statement
+    (parenthesized_expression
+      (identifier))
+    (compound_statement
+      (expression_statement
+        (integer_literal)))
+    (if_statement
+      (parenthesized_expression
+        (identifier))
+      (compound_statement
+        (expression_statement
+          (integer_literal)))
+      (compound_statement
+        (expression_statement
+          (integer_literal))))))
