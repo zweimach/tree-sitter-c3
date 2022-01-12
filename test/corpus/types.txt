@@ -70,3 +70,96 @@ int[5] a = { 1, 2, 3, 4, 5 };
       (integer_literal)
       (integer_literal)
       (integer_literal))))
+
+========================================
+Type identifier
+========================================
+
+Foo a;
+foo::Bar a;
+foo::bar::Baz a;
+Foo[10] b;
+foo::Bar[10] b;
+foo::bar::Baz[10] b;
+Foo! c;
+foo::Bar! c;
+foo::bar::Baz! c;
+Foo* c;
+foo::Bar* c;
+foo::bar::Baz* c;
+
+---
+
+(source_file
+  (var_declaration
+    (type_identifier)
+    (identifier))
+  (var_declaration
+    (scoped_type_identifier
+      (identifier)
+      (type_identifier))
+    (identifier))
+  (var_declaration
+    (scoped_type_identifier
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (type_identifier))
+    (identifier))
+  (var_declaration
+    (array_type
+      (type_identifier)
+      (integer_literal))
+    (identifier))
+  (var_declaration
+    (array_type
+      (scoped_type_identifier
+        (identifier)
+        (type_identifier))
+      (integer_literal))
+    (identifier))
+  (var_declaration
+    (array_type
+      (scoped_type_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (type_identifier))
+      (integer_literal))
+    (identifier))
+  (var_declaration
+    (failable_type
+      (type_identifier))
+    (identifier))
+  (var_declaration
+    (failable_type
+      (scoped_type_identifier
+        (identifier)
+        (type_identifier)))
+    (identifier))
+  (var_declaration
+    (failable_type
+      (scoped_type_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (type_identifier)))
+    (identifier))
+  (var_declaration
+    (pointer_type
+      (type_identifier))
+    (identifier))
+  (var_declaration
+    (pointer_type
+      (scoped_type_identifier
+        (identifier)
+        (type_identifier)))
+    (identifier))
+  (var_declaration
+    (pointer_type
+      (scoped_type_identifier
+        (scoped_identifier
+          (identifier)
+          (identifier))
+        (type_identifier)))
+    (identifier)))

@@ -31,7 +31,12 @@ module.exports = grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
-  conflicts: ($) => [[$._type_identifier, $._expression]],
+  conflicts: ($) => [
+    [$._type_identifier, $._expression],
+    [$._type_identifier, $.scoped_identifier],
+    [$._path, $.scoped_identifier],
+    [$._argument_list, $.argument_list],
+  ],
 
   word: ($) => $.identifier,
 
@@ -78,10 +83,16 @@ module.exports = grammar({
         $.subscript_expression,
         $.call_expression,
         $.field_expression,
-        prec.left($.identifier)
+        $.identifier,
+        $.scoped_identifier
       ),
 
+    _path: ($) => choice($.scoped_identifier, $.identifier),
+
     identifier: ($) => /[a-zA-Z_]\w*/,
+
+    scoped_identifier: ($) =>
+      seq(field("path", $._path), "::", field("name", $.identifier)),
 
     visiblitiy_modifier: ($) => choice("private"),
 
@@ -277,7 +288,7 @@ module.exports = grammar({
         )
       ),
 
-    _argument_list: ($) => token(seq("(", ")")),
+    _argument_list: ($) => seq("(", ")"),
 
     argument_list: ($) => seq("(", commaSep($._expression), ")"),
 
@@ -295,8 +306,12 @@ module.exports = grammar({
         $._type_identifier,
         $.pointer_type,
         $.failable_type,
-        $.array_type
+        $.array_type,
+        $.scoped_type_identifier
       ),
+
+    scoped_type_identifier: ($) =>
+      seq(field("path", $._path), "::", field("type", $._type_identifier)),
 
     primitive_type: ($) => choice($._integer_type, $._float_type, "void"),
 
@@ -323,7 +338,7 @@ module.exports = grammar({
 
     _type_identifier: ($) => alias($.identifier, $.type_identifier),
 
-    pointer_type: ($) => prec.left(seq($._type, "*")),
+    pointer_type: ($) => prec.dynamic(1, prec.right(seq($._type, "*"))),
 
     failable_type: ($) => prec.left(seq($._type, "!")),
 
