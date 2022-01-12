@@ -41,7 +41,10 @@ module.exports = grammar({
   word: ($) => $.identifier,
 
   rules: {
-    source_file: ($) => repeat($._top_level_item),
+    source_file: ($) =>
+      seq(optional($.module_declaration), repeat($._top_level_item)),
+
+    module_declaration: ($) => seq("module", $._path),
 
     _top_level_item: ($) =>
       seq(optional($.visiblitiy_modifier), choice($._statement)),
@@ -60,6 +63,7 @@ module.exports = grammar({
 
     _declaration_statement: ($) =>
       choice(
+        $.import_declaration,
         $.function_declaration,
         $.const_declaration,
         $.var_declaration,
@@ -67,6 +71,8 @@ module.exports = grammar({
         $.union_declaration,
         $.enum_declaration
       ),
+
+    import_declaration: ($) => seq("import", $._path),
 
     return_statement: ($) => seq("return", optional($._expression), ";"),
 

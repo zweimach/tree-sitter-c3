@@ -1,4 +1,67 @@
 ================================================================================
+Module declarations
+================================================================================
+
+module program::main;
+
+import std::io;
+
+fn void main() {
+    io::printf("Hello, World!\n");
+}
+
+---
+
+(source_file
+  (module_declaration
+    (scoped_identifier
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (scoped_identifier
+      (identifier)
+      (identifier)))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameter_list)
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (argument_list
+            (string_literal
+              (escape_sequence))))))))
+
+================================================================================
+Import declarations
+================================================================================
+
+import std::io;
+import std::math;
+import std::data::json;
+
+---
+
+(source_file
+  (import_declaration
+    (scoped_identifier
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (scoped_identifier
+      (identifier)
+      (identifier)))
+  (import_declaration
+    (scoped_identifier
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (identifier))))
+
+================================================================================
 Function declarations
 ================================================================================
 
