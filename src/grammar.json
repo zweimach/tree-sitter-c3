@@ -454,6 +454,10 @@
         {
           "type": "STRING",
           "value": "private"
+        },
+        {
+          "type": "STRING",
+          "value": "public"
         }
       ]
     },
@@ -2279,6 +2283,31 @@
             "type": "SYMBOL",
             "name": "_type"
           }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "FIELD",
+                  "name": "type",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "type_identifier"
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": "."
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         },
         {
           "type": "FIELD",

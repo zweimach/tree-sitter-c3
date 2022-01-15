@@ -134,7 +134,7 @@ module.exports = grammar({
         $.scoped_identifier
       ),
 
-    visiblitiy_modifier: ($) => choice("private"),
+    visiblitiy_modifier: ($) => choice("private", "public"),
 
     _initializer: ($) => choice($._expression, $.initializer_list),
 
@@ -394,6 +394,7 @@ module.exports = grammar({
       seq(
         "fn",
         field("return_type", $._type),
+        optional(seq(field("type", $.type_identifier), ".")),
         field("name", $.identifier),
         field("parameters", choice($.parameter_list, $._parameter_list)),
         field("attributes", optional($.attribute_list))

@@ -1600,6 +1600,16 @@
             "named": true
           }
         ]
+      },
+      "type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
       }
     }
   },
@@ -3214,6 +3224,10 @@
   },
   {
     "type": "private",
+    "named": false
+  },
+  {
+    "type": "public",
     "named": false
   },
   {

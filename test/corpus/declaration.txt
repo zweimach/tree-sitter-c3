@@ -301,6 +301,10 @@ struct Player @packed {
     uint health @aligned;
 }
 
+fn bool Player.is_alive(Player* p) {
+    return p.health > 0;
+}
+
 ---
 
 (source_file
@@ -332,7 +336,23 @@ struct Player @packed {
         (identifier)
         (attribute_list
           (attribute
-            (identifier)))))))
+            (identifier))))))
+  (function_declaration
+    (primitive_type)
+    (type_identifier)
+    (identifier)
+    (parameter_list
+      (parameter
+        (pointer_type
+          (type_identifier))
+        (identifier)))
+    (compound_statement
+      (return_statement
+        (binary_expression
+          (field_expression
+            (identifier)
+            (identifier))
+          (integer_literal))))))
 
 ============================================
 Union declarations
