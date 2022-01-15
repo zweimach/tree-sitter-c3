@@ -31,23 +31,15 @@ module.exports = grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
-  conflicts: ($) => [[$._argument_list, $.argument_list]],
+  conflicts: ($) => [
+    [$._argument_list, $.argument_list],
+    [$._parameter_list, $.parameter_list],
+  ],
 
   word: ($) => $.identifier,
 
   rules: {
-    source_file: ($) =>
-      seq(
-        field("module", optional($.module_declaration)),
-        repeat($._top_level_item)
-      ),
-
-    module_declaration: ($) =>
-      seq(
-        "module",
-        field("name", $._path),
-        field("parameters", optional($.generic_parameter_list))
-      ),
+    source_file: ($) => repeat($._top_level_item),
 
     generic_parameter_list: ($) => seq("<", commaSep($._type), ">"),
 
@@ -71,6 +63,7 @@ module.exports = grammar({
 
     _declaration_statement: ($) =>
       choice(
+        $.module_declaration,
         $.import_declaration,
         $.function_declaration,
         $.const_declaration,
@@ -78,7 +71,15 @@ module.exports = grammar({
         $.define_declaration,
         $.struct_declaration,
         $.union_declaration,
-        $.enum_declaration
+        $.enum_declaration,
+        $.error_declaration
+      ),
+
+    module_declaration: ($) =>
+      seq(
+        "module",
+        field("name", $._path),
+        field("parameters", optional($.generic_parameter_list))
       ),
 
     import_declaration: ($) => seq("import", $._path),
@@ -394,11 +395,13 @@ module.exports = grammar({
         "fn",
         field("return_type", $._type),
         field("name", $.identifier),
-        field("parameters", optional($.parameter_list)),
+        field("parameters", choice($.parameter_list, $._parameter_list)),
         field("attributes", optional($.attribute_list))
       ),
 
     compound_statement: ($) => seq("{", repeat($._statement), "}"),
+
+    _parameter_list: ($) => seq("(", ")"),
 
     parameter_list: ($) =>
       seq("(", commaSep(choice($.parameter, $.variadic_parameter)), ")"),
@@ -506,6 +509,14 @@ module.exports = grammar({
       seq(
         field("name", $.const_identifier),
         optional(seq("=", field("value", $._expression)))
+      ),
+
+    error_declaration: ($) =>
+      seq(
+        "errtype",
+        field("name", $.type_identifier),
+        field("attributes", optional($.attribute_list)),
+        field("body", $.enumerator_list)
       ),
 
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890

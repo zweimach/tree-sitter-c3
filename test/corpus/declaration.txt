@@ -10,35 +10,6 @@ fn void main() {
     io::printf("Hello, World!\n");
 }
 
----
-
-(source_file
-  (module_declaration
-    (scoped_identifier
-      (identifier)
-      (identifier)))
-  (import_declaration
-    (scoped_identifier
-      (identifier)
-      (identifier)))
-  (function_declaration
-    (primitive_type)
-    (identifier)
-    (parameter_list)
-    (compound_statement
-      (expression_statement
-        (call_expression
-          (scoped_identifier
-            (identifier)
-            (identifier))
-          (argument_list
-            (string_literal
-              (escape_sequence))))))))
-
-================================================================================
-Generic module declarations
-================================================================================
-
 module foo_test::mod <Type1, Type2>;
 
 import std::mem;
@@ -63,7 +34,27 @@ struct Stack
 ---
 
 (source_file
-  module: (module_declaration
+  (module_declaration
+    name: (scoped_identifier
+      path: (identifier)
+      name: (identifier)))
+  (import_declaration
+    (scoped_identifier
+      path: (identifier)
+      name: (identifier)))
+  (function_declaration
+    return_type: (primitive_type)
+    name: (identifier)
+    body: (compound_statement
+      (expression_statement
+        (call_expression
+          function: (scoped_identifier
+            path: (identifier)
+            name: (identifier))
+          arguments: (argument_list
+            (string_literal
+              (escape_sequence)))))))
+  (module_declaration
     name: (scoped_identifier
       path: (identifier)
       name: (identifier))
@@ -437,3 +428,24 @@ enum TokenKind @packed @opaque {
         (const_identifier))
       (enumerator
         (const_identifier)))))
+
+================================================================================
+Error declarations
+================================================================================
+
+errtype IoError
+{
+    FILE_NOT_FOUND,
+    FILE_NOT_READABLE,
+}
+
+---
+
+(source_file
+  (error_declaration
+    name: (type_identifier)
+    body: (enumerator_list
+      (enumerator
+        name: (const_identifier))
+      (enumerator
+        name: (const_identifier)))))

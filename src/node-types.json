@@ -766,6 +766,10 @@
           "named": true
         },
         {
+          "type": "error_declaration",
+          "named": true
+        },
+        {
           "type": "expression_statement",
           "named": true
         },
@@ -779,6 +783,10 @@
         },
         {
           "type": "import_declaration",
+          "named": true
+        },
+        {
+          "type": "module_declaration",
           "named": true
         },
         {
@@ -1122,6 +1130,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "error_declaration",
+    "named": true,
+    "fields": {
+      "attributes": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "attribute_list",
+            "named": true
+          }
+        ]
+      },
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "enumerator_list",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -1510,9 +1554,17 @@
         ]
       },
       "parameters": {
-        "multiple": false,
-        "required": false,
+        "multiple": true,
+        "required": true,
         "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
           {
             "type": "parameter_list",
             "named": true
@@ -1619,6 +1671,10 @@
             "named": true
           },
           {
+            "type": "error_declaration",
+            "named": true
+          },
+          {
             "type": "expression_statement",
             "named": true
           },
@@ -1632,6 +1688,10 @@
           },
           {
             "type": "import_declaration",
+            "named": true
+          },
+          {
+            "type": "module_declaration",
             "named": true
           },
           {
@@ -1687,6 +1747,10 @@
             "named": true
           },
           {
+            "type": "error_declaration",
+            "named": true
+          },
+          {
             "type": "expression_statement",
             "named": true
           },
@@ -1700,6 +1764,10 @@
           },
           {
             "type": "import_declaration",
+            "named": true
+          },
+          {
+            "type": "module_declaration",
             "named": true
           },
           {
@@ -2296,18 +2364,7 @@
   {
     "type": "source_file",
     "named": true,
-    "fields": {
-      "module": {
-        "multiple": false,
-        "required": false,
-        "types": [
-          {
-            "type": "module_declaration",
-            "named": true
-          }
-        ]
-      }
-    },
+    "fields": {},
     "children": {
       "multiple": true,
       "required": false,
@@ -2325,6 +2382,10 @@
           "named": true
         },
         {
+          "type": "error_declaration",
+          "named": true
+        },
+        {
           "type": "expression_statement",
           "named": true
         },
@@ -2338,6 +2399,10 @@
         },
         {
           "type": "import_declaration",
+          "named": true
+        },
+        {
+          "type": "module_declaration",
           "named": true
         },
         {
@@ -3061,6 +3126,10 @@
   },
   {
     "type": "enum",
+    "named": false
+  },
+  {
+    "type": "errtype",
     "named": false
   },
   {

@@ -3,65 +3,11 @@
   "word": "identifier",
   "rules": {
     "source_file": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "FIELD",
-          "name": "module",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "module_declaration"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_top_level_item"
-          }
-        }
-      ]
-    },
-    "module_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "module"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_path"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "parameters",
-          "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "generic_parameter_list"
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        }
-      ]
+      "type": "REPEAT",
+      "content": {
+        "type": "SYMBOL",
+        "name": "_top_level_item"
+      }
     },
     "generic_parameter_list": {
       "type": "SEQ",
@@ -182,6 +128,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "module_declaration"
+        },
+        {
+          "type": "SYMBOL",
           "name": "import_declaration"
         },
         {
@@ -211,6 +161,43 @@
         {
           "type": "SYMBOL",
           "name": "enum_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "error_declaration"
+        }
+      ]
+    },
+    "module_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "module"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_path"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "parameters",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "generic_parameter_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
         }
       ]
     },
@@ -2312,7 +2299,8 @@
                 "name": "parameter_list"
               },
               {
-                "type": "BLANK"
+                "type": "SYMBOL",
+                "name": "_parameter_list"
               }
             ]
           }
@@ -2352,6 +2340,19 @@
         {
           "type": "STRING",
           "value": "}"
+        }
+      ]
+    },
+    "_parameter_list": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "STRING",
+          "value": ")"
         }
       ]
     },
@@ -3112,6 +3113,47 @@
         }
       ]
     },
+    "error_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "errtype"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "attributes",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "attribute_list"
+              },
+              {
+                "type": "BLANK"
+              }
+            ]
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "enumerator_list"
+          }
+        }
+      ]
+    },
     "comment": {
       "type": "TOKEN",
       "content": {
@@ -3165,6 +3207,10 @@
     [
       "_argument_list",
       "argument_list"
+    ],
+    [
+      "_parameter_list",
+      "parameter_list"
     ]
   ],
   "precedences": [],
