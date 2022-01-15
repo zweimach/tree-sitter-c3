@@ -462,3 +462,67 @@ a::b::c.d.e();
             (identifier))
           (identifier))
       (identifier)))))
+
+================================================================================
+Try expressions
+================================================================================
+
+File*! res = findFile();
+if (try res)
+{
+    printf("I found the file\n");
+}
+
+---
+
+(source_file
+  (var_declaration
+    (failable_type
+      (pointer_type
+        (type_identifier)))
+    (identifier)
+    (call_expression
+      (identifier)))
+  (if_statement
+    (parenthesized_expression
+      (try_expression
+        (identifier)))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (string_literal
+              (escape_sequence))))))))
+
+================================================================================
+Catch expressions
+================================================================================
+
+File*! res = findFile();
+if (catch res)
+{
+    printf("An error occurred!\n");
+}
+
+---
+
+(source_file
+  (var_declaration
+    (failable_type
+      (pointer_type
+        (type_identifier)))
+    (identifier)
+    (call_expression
+      (identifier)))
+  (if_statement
+    (parenthesized_expression
+      (catch_expression
+        (identifier)))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (string_literal
+              (escape_sequence))))))))

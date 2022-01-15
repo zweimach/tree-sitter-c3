@@ -153,6 +153,8 @@ module.exports = grammar({
         $.subscript_expression,
         $.call_expression,
         $.field_expression,
+        $.try_expression,
+        $.catch_expression,
         $.identifier,
         $.scoped_identifier
       ),
@@ -360,6 +362,10 @@ module.exports = grammar({
         field("value", prec(PREC.postfix, seq($._expression, "."))),
         field("field", $.identifier)
       ),
+
+    try_expression: ($) => prec.left(1, seq("try", $._expression)),
+
+    catch_expression: ($) => prec.left(1, seq("catch", $._expression)),
 
     // Types
 
