@@ -50,6 +50,7 @@ module.exports = grammar({
     $._integer_type,
     $._float_type,
     $._function_signature,
+    $._var_declaration,
     $._struct_declaration,
     $._field_struct_declaration,
   ],
@@ -77,7 +78,8 @@ module.exports = grammar({
         $.expression_statement,
         $._declaration_statement,
         $.return_statement,
-        $.if_statement
+        $.if_statement,
+        $.while_statement
       ),
 
     _empty_statement: ($) => ";",
@@ -121,6 +123,18 @@ module.exports = grammar({
           )
         )
       ),
+
+    while_statement: ($) =>
+      seq(
+        "while",
+        field(
+          "condition",
+          choice($.parenthesized_expression, $.parenthesized_declaration)
+        ),
+        field("consecuence", choice($._statement, $.compound_statement))
+      ),
+
+    parenthesized_declaration: ($) => seq("(", $._var_declaration, ")"),
 
     // Identifiers
 
@@ -459,12 +473,13 @@ module.exports = grammar({
         ";"
       ),
 
-    var_declaration: ($) =>
+    var_declaration: ($) => seq($._var_declaration, ";"),
+
+    _var_declaration: ($) =>
       seq(
         field("type", $._type),
         $.identifier,
-        optional(seq("=", field("value", $._initializer))),
-        ";"
+        optional(seq("=", field("value", $._initializer)))
       ),
 
     define_declaration: ($) =>

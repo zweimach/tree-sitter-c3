@@ -57,3 +57,66 @@ if (a) {
       (compound_statement
         (expression_statement
           (integer_literal))))))
+
+================================================================================
+While statements
+================================================================================
+
+int i = 0;
+while (i < 10) {
+    i += 1;
+    i++;
+}
+while (1) {
+    print(1);
+}
+while (Point* p = getPoint())
+{
+    print(p.calculate());
+}
+
+---
+
+(source_file
+  (var_declaration
+    (primitive_type)
+    (identifier)
+    (integer_literal))
+  (while_statement
+    (parenthesized_expression
+      (binary_expression
+        (identifier)
+        (integer_literal)))
+    (compound_statement
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (integer_literal)))
+      (expression_statement
+        (unary_expression
+          (identifier)))))
+  (while_statement
+    (parenthesized_expression
+      (integer_literal))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (integer_literal))))))
+  (while_statement
+    (parenthesized_declaration
+      (pointer_type
+        (type_identifier))
+      (identifier)
+      (call_expression
+        (identifier)))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (call_expression
+              (field_expression
+                (identifier)
+                (identifier)))))))))
