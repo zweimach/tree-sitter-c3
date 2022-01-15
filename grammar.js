@@ -31,6 +31,29 @@ module.exports = grammar({
 
   extras: ($) => [/\s|\\\r?\n/, $.comment],
 
+  inline: ($) => [
+    $._top_level_item,
+    $._statement,
+    $._empty_statement,
+    $._declaration_statement,
+    $._path,
+    $._type_path,
+    $._expression,
+    $._initializer,
+    $._literal,
+    $._string_literal,
+    $._raw_string_literal,
+    $._multiline_string_literal,
+    $._prefix_expression,
+    $._postfix_expression,
+    $._type,
+    $._integer_type,
+    $._float_type,
+    $._function_signature,
+    $._struct_declaration,
+    $._field_struct_declaration,
+  ],
+
   conflicts: ($) => [
     [$._argument_list, $.argument_list],
     [$._parameter_list, $.parameter_list],
