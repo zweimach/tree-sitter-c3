@@ -65,8 +65,6 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat($._top_level_item),
 
-    generic_parameter_list: ($) => seq("<", commaSep($._type), ">"),
-
     _top_level_item: ($) =>
       seq(optional($.visiblitiy_modifier), choice($._statement)),
 
@@ -79,7 +77,9 @@ module.exports = grammar({
         $._declaration_statement,
         $.return_statement,
         $.if_statement,
-        $.while_statement
+        $.while_statement,
+        $.for_statement,
+        $.defer_statement
       ),
 
     _empty_statement: ($) => ";",
@@ -99,15 +99,6 @@ module.exports = grammar({
         $.enum_declaration,
         $.error_declaration
       ),
-
-    module_declaration: ($) =>
-      seq(
-        "module",
-        field("name", $._path),
-        field("parameters", optional($.generic_parameter_list))
-      ),
-
-    import_declaration: ($) => seq("import", $._path),
 
     return_statement: ($) => seq("return", optional($._expression), ";"),
 
@@ -131,10 +122,28 @@ module.exports = grammar({
           "condition",
           choice($.parenthesized_expression, $.parenthesized_declaration)
         ),
-        field("consecuence", choice($._statement, $.compound_statement))
+        field("body", choice($._statement, $.compound_statement))
       ),
 
     parenthesized_declaration: ($) => seq("(", $._var_declaration, ")"),
+
+    for_statement: ($) =>
+      seq(
+        "for",
+        "(",
+        field(
+          "initializer",
+          choice($.var_declaration, seq(optional($.assignment_expression), ";"))
+        ),
+        field("condition", optional($._expression)),
+        ";",
+        field("update", optional($._expression)),
+        ")",
+        field("body", choice($._statement, $.compound_statement))
+      ),
+
+    defer_statement: ($) =>
+      seq("defer", choice($._statement, $.compound_statement)),
 
     // Identifiers
 
@@ -426,6 +435,17 @@ module.exports = grammar({
       ),
 
     // Declarations
+
+    module_declaration: ($) =>
+      seq(
+        "module",
+        field("name", $._path),
+        field("parameters", optional($.generic_parameter_list))
+      ),
+
+    generic_parameter_list: ($) => seq("<", commaSep($._type), ">"),
+
+    import_declaration: ($) => seq("import", $._path),
 
     function_declaration: ($) =>
       choice(

@@ -120,3 +120,130 @@ while (Point* p = getPoint())
               (field_expression
                 (identifier)
                 (identifier)))))))))
+
+================================================================================
+For statements
+================================================================================
+
+for (int i = 0; i < 10; i++) {
+    print(i);
+}
+for (i = 0; i < 10; i++) {
+    print(i);
+}
+for (;;) {
+    print(1);
+}
+for (; i < 10;) {
+    print(1);
+}
+for (;; i++) {
+    print(1);
+}
+
+---
+
+(source_file
+  (for_statement
+    (var_declaration
+      (primitive_type)
+      (identifier)
+      (integer_literal))
+    (binary_expression
+      (identifier)
+      (integer_literal))
+    (unary_expression
+      (identifier))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier))))))
+  (for_statement
+    (assignment_expression
+      (identifier)
+      (integer_literal))
+    (binary_expression
+      (identifier)
+      (integer_literal))
+    (unary_expression
+      (identifier))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (identifier))))))
+  (for_statement
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (integer_literal))))))
+  (for_statement
+    (binary_expression
+      (identifier)
+      (integer_literal))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (integer_literal))))))
+  (for_statement
+    (unary_expression
+      (identifier))
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (argument_list
+            (integer_literal)))))))
+
+================================================================================
+Defer statements
+================================================================================
+
+defer free();
+defer {
+    i = i + 1;
+    break;
+}
+defer {
+    defer test1();
+    test2();
+    defer test3();
+}
+
+---
+
+(source_file
+  (defer_statement
+    (expression_statement
+      (call_expression
+        (identifier))))
+  (defer_statement
+    (compound_statement
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (binary_expression
+            (identifier)
+            (integer_literal))))
+      (expression_statement
+        (identifier))))
+  (defer_statement
+    (compound_statement
+      (defer_statement
+        (expression_statement
+          (call_expression
+            (identifier))))
+      (expression_statement
+        (call_expression
+          (identifier)))
+      (defer_statement
+        (expression_statement
+          (call_expression
+            (identifier)))))))
