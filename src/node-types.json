@@ -1173,6 +1173,10 @@
           "named": true
         },
         {
+          "type": "function_pointer_type",
+          "named": true
+        },
+        {
           "type": "generic_parameter_list",
           "named": true
         },
@@ -2125,6 +2129,60 @@
         "multiple": false,
         "required": false,
         "types": [
+          {
+            "type": "type_identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "function_pointer_type",
+    "named": true,
+    "fields": {
+      "parameters": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "parameter_list",
+            "named": true
+          }
+        ]
+      },
+      "return_type": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_type",
+            "named": true
+          },
+          {
+            "type": "failable_type",
+            "named": true
+          },
+          {
+            "type": "pointer_type",
+            "named": true
+          },
+          {
+            "type": "primitive_type",
+            "named": true
+          },
+          {
+            "type": "scoped_type_identifier",
+            "named": true
+          },
           {
             "type": "type_identifier",
             "named": true

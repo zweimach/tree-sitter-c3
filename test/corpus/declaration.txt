@@ -142,6 +142,7 @@ define BarFoo = bar::Foo;
 define bar_foo = bar::foo;
 define FooFloat = foo_test::Foo<float, double>;
 define testFloat = foo_test::test<float, double>;
+define Callback = fn int(char* text, int value);
 
 ---
 
@@ -189,7 +190,19 @@ define testFloat = foo_test::test<float, double>;
       (identifier))
     (generic_parameter_list
       (primitive_type)
-      (primitive_type))))
+      (primitive_type)))
+  (define_declaration
+    (type_identifier)
+    (function_pointer_type
+      (primitive_type)
+      (parameter_list
+        (parameter
+          (pointer_type
+            (primitive_type))
+          (identifier))
+        (parameter
+          (primitive_type)
+          (identifier))))))
 
 ================================================================================
 Function declarations

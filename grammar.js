@@ -427,6 +427,13 @@ module.exports = grammar({
 
     pointer_type: ($) => prec.dynamic(1, prec.right(seq($._type, "*"))),
 
+    function_pointer_type: ($) =>
+      seq(
+        "fn",
+        field("return_type", $._type),
+        field("parameters", choice($.parameter_list, $._parameter_list))
+      ),
+
     failable_type: ($) => prec.left(seq($._type, "!")),
 
     array_type: ($) =>
@@ -509,7 +516,8 @@ module.exports = grammar({
           seq($.identifier, "=", $._path),
           seq($.identifier, "=", $._path, $.generic_parameter_list),
           seq($.type_identifier, "=", optional("distinct"), $._type),
-          seq($.type_identifier, "=", $._type_path, $.generic_parameter_list)
+          seq($.type_identifier, "=", $._type_path, $.generic_parameter_list),
+          seq($.type_identifier, "=", $.function_pointer_type)
         ),
         ";"
       ),
