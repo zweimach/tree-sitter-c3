@@ -731,6 +731,14 @@
         {
           "type": "SYMBOL",
           "name": "_multiline_string_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_hex_string_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_base64_string_literal"
         }
       ]
     },
@@ -818,6 +826,46 @@
         {
           "type": "STRING",
           "value": "\"\"\""
+        }
+      ]
+    },
+    "_hex_string_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "x\""
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[0-9a-fA-F ]*"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "_base64_string_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "b64\""
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[0-9a-zA-Z+/= ]*"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
         }
       ]
     },

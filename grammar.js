@@ -208,7 +208,9 @@ module.exports = grammar({
       choice(
         $._string_literal,
         $._raw_string_literal,
-        $._multiline_string_literal
+        $._multiline_string_literal,
+        $._hex_string_literal,
+        $._base64_string_literal
       ),
 
     _string_literal: ($) =>
@@ -226,6 +228,12 @@ module.exports = grammar({
         repeat(choice(token.immediate(/[^\\]/), $.escape_sequence)),
         '"""'
       ),
+
+    _hex_string_literal: ($) =>
+      seq('x"', token.immediate(/[0-9a-fA-F ]*/), '"'),
+
+    _base64_string_literal: ($) =>
+      seq('b64"', token.immediate(/[0-9a-zA-Z+/= ]*/), '"'),
 
     escape_sequence: ($) =>
       token(

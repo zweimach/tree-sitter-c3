@@ -149,6 +149,8 @@ const char* h = """
       </body>
     </html>
     """;
+char* i = x"4865 6c6c 6f20 776f 726c 6421";
+char* j = b64"Rk9PQkFSMTE=";
 
 ---
 
@@ -163,7 +165,9 @@ const char* h = """
   (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
   (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
   (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
-  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal)))
+  (const_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal))
+  (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal)))
 
 ================================================================================
 Assignment expressions
