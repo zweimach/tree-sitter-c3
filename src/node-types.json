@@ -1,6 +1,6 @@
 [
   {
-    "type": "argument_list",
+    "type": "arguments",
     "named": true,
     "fields": {},
     "children": {
@@ -421,7 +421,7 @@
     }
   },
   {
-    "type": "attribute_list",
+    "type": "attributes",
     "named": true,
     "fields": {},
     "children": {
@@ -689,19 +689,11 @@
     "named": true,
     "fields": {
       "arguments": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "argument_list",
+            "type": "arguments",
             "named": true
           }
         ]
@@ -1035,7 +1027,7 @@
           "named": true
         },
         {
-          "type": "initializer_list",
+          "type": "initializers",
           "named": true
         },
         {
@@ -1177,10 +1169,6 @@
           "named": true
         },
         {
-          "type": "generic_parameter_list",
-          "named": true
-        },
-        {
           "type": "identifier",
           "named": true
         },
@@ -1203,6 +1191,10 @@
         {
           "type": "type_identifier",
           "named": true
+        },
+        {
+          "type": "type_parameters",
+          "named": true
         }
       ]
     }
@@ -1216,7 +1208,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -1256,7 +1248,7 @@
         "required": true,
         "types": [
           {
-            "type": "enumerator_list",
+            "type": "enumerators",
             "named": true
           }
         ]
@@ -1368,7 +1360,7 @@
     }
   },
   {
-    "type": "enumerator_list",
+    "type": "enumerators",
     "named": true,
     "fields": {},
     "children": {
@@ -1391,7 +1383,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -1401,7 +1393,7 @@
         "required": true,
         "types": [
           {
-            "type": "enumerator_list",
+            "type": "enumerators",
             "named": true
           }
         ]
@@ -1545,7 +1537,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -1593,7 +1585,7 @@
     }
   },
   {
-    "type": "field_declaration_list",
+    "type": "field_declarations",
     "named": true,
     "fields": {},
     "children": {
@@ -1722,7 +1714,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -1732,7 +1724,7 @@
         "required": true,
         "types": [
           {
-            "type": "field_declaration_list",
+            "type": "field_declarations",
             "named": true
           }
         ]
@@ -1758,7 +1750,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -1768,7 +1760,7 @@
         "required": true,
         "types": [
           {
-            "type": "field_declaration_list",
+            "type": "field_declarations",
             "named": true
           }
         ]
@@ -2052,7 +2044,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -2078,19 +2070,11 @@
         ]
       },
       "parameters": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "parameter_list",
+            "type": "parameters",
             "named": true
           }
         ]
@@ -2142,19 +2126,11 @@
     "named": true,
     "fields": {
       "parameters": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
-            "type": "parameter_list",
+            "type": "parameters",
             "named": true
           }
         ]
@@ -2189,41 +2165,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "generic_parameter_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "array_type",
-          "named": true
-        },
-        {
-          "type": "failable_type",
-          "named": true
-        },
-        {
-          "type": "pointer_type",
-          "named": true
-        },
-        {
-          "type": "primitive_type",
-          "named": true
-        },
-        {
-          "type": "scoped_type_identifier",
-          "named": true
-        },
-        {
-          "type": "type_identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -2422,7 +2363,7 @@
     }
   },
   {
-    "type": "initializer_list",
+    "type": "initializers",
     "named": true,
     "fields": {},
     "children": {
@@ -2527,7 +2468,7 @@
         "required": false,
         "types": [
           {
-            "type": "generic_parameter_list",
+            "type": "type_parameters",
             "named": true
           }
         ]
@@ -2587,7 +2528,7 @@
           "named": true
         },
         {
-          "type": "initializer_list",
+          "type": "initializers",
           "named": true
         },
         {
@@ -2646,7 +2587,7 @@
     }
   },
   {
-    "type": "parameter_list",
+    "type": "parameters",
     "named": true,
     "fields": {},
     "children": {
@@ -2739,7 +2680,7 @@
             "named": true
           },
           {
-            "type": "initializer_list",
+            "type": "initializers",
             "named": true
           },
           {
@@ -3244,7 +3185,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -3254,7 +3195,7 @@
         "required": true,
         "types": [
           {
-            "type": "field_declaration_list",
+            "type": "field_declarations",
             "named": true
           }
         ]
@@ -3517,6 +3458,41 @@
     }
   },
   {
+    "type": "type_parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array_type",
+          "named": true
+        },
+        {
+          "type": "failable_type",
+          "named": true
+        },
+        {
+          "type": "pointer_type",
+          "named": true
+        },
+        {
+          "type": "primitive_type",
+          "named": true
+        },
+        {
+          "type": "scoped_type_identifier",
+          "named": true
+        },
+        {
+          "type": "type_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "unary_expression",
     "named": true,
     "fields": {},
@@ -3608,7 +3584,7 @@
         "required": false,
         "types": [
           {
-            "type": "attribute_list",
+            "type": "attributes",
             "named": true
           }
         ]
@@ -3618,7 +3594,7 @@
         "required": true,
         "types": [
           {
-            "type": "field_declaration_list",
+            "type": "field_declarations",
             "named": true
           }
         ]
@@ -3710,7 +3686,7 @@
             "named": true
           },
           {
-            "type": "initializer_list",
+            "type": "initializers",
             "named": true
           },
           {

@@ -53,7 +53,7 @@ int[5] a = { 1, 2, 3, 4, 5 };
     (array_type
       (primitive_type))
     (identifier)
-    (initializer_list
+    (initializers
       (integer_literal)
       (integer_literal)
       (integer_literal)
@@ -64,7 +64,7 @@ int[5] a = { 1, 2, 3, 4, 5 };
       (primitive_type)
       (integer_literal))
     (identifier)
-    (initializer_list
+    (initializers
       (integer_literal)
       (integer_literal)
       (integer_literal)

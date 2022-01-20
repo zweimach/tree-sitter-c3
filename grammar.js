@@ -55,10 +55,7 @@ module.exports = grammar({
     $._field_struct_declaration,
   ],
 
-  conflicts: ($) => [
-    [$._argument_list, $.argument_list],
-    [$._parameter_list, $.parameter_list],
-  ],
+  conflicts: ($) => [],
 
   word: ($) => $.identifier,
 
@@ -184,10 +181,9 @@ module.exports = grammar({
 
     visiblitiy_modifier: ($) => choice("private", "public"),
 
-    _initializer: ($) => choice($._expression, $.initializer_list),
+    _initializer: ($) => choice($._expression, $.initializers),
 
-    initializer_list: ($) =>
-      seq("{", commaSep($._expression), optional(","), "}"),
+    initializers: ($) => seq("{", commaSep($._expression), optional(","), "}"),
 
     _literal: ($) =>
       choice(
@@ -378,15 +374,10 @@ module.exports = grammar({
     call_expression: ($) =>
       prec(
         PREC.postfix,
-        seq(
-          field("function", $._expression),
-          field("arguments", choice($.argument_list, $._argument_list))
-        )
+        seq(field("function", $._expression), field("arguments", $.arguments))
       ),
 
-    _argument_list: ($) => seq("(", ")"),
-
-    argument_list: ($) => seq("(", commaSep($._expression), ")"),
+    arguments: ($) => seq("(", commaSep($._expression), ")"),
 
     field_expression: ($) =>
       seq(
@@ -439,7 +430,7 @@ module.exports = grammar({
       seq(
         "fn",
         field("return_type", $._type),
-        field("parameters", choice($.parameter_list, $._parameter_list))
+        field("parameters", $.parameters)
       ),
 
     failable_type: ($) => prec.left(seq($._type, "!")),
@@ -455,10 +446,10 @@ module.exports = grammar({
       seq(
         "module",
         field("name", $._path),
-        field("parameters", optional($.generic_parameter_list))
+        field("parameters", optional($.type_parameters))
       ),
 
-    generic_parameter_list: ($) => seq("<", commaSep($._type), ">"),
+    type_parameters: ($) => seq("<", commaSep($._type), ">"),
 
     import_declaration: ($) => seq("import", $._path),
 
@@ -474,15 +465,13 @@ module.exports = grammar({
         field("return_type", $._type),
         optional(seq(field("type", $.type_identifier), ".")),
         field("name", $.identifier),
-        field("parameters", choice($.parameter_list, $._parameter_list)),
-        field("attributes", optional($.attribute_list))
+        field("parameters", $.parameters),
+        field("attributes", optional($.attributes))
       ),
 
     compound_statement: ($) => seq("{", repeat($._statement), "}"),
 
-    _parameter_list: ($) => seq("(", ")"),
-
-    parameter_list: ($) =>
+    parameters: ($) =>
       seq("(", commaSep(choice($.parameter, $.variadic_parameter)), ")"),
 
     parameter: ($) =>
@@ -493,7 +482,7 @@ module.exports = grammar({
 
     variadic_parameter: ($) => choice("...", seq($._type, "...", $.identifier)),
 
-    attribute_list: ($) => repeat1($.attribute),
+    attributes: ($) => repeat1($.attribute),
 
     attribute: ($) =>
       seq("@", $.identifier, optional(seq("(", $._expression, ")"))),
@@ -522,9 +511,9 @@ module.exports = grammar({
         "define",
         choice(
           seq($.identifier, "=", $._path),
-          seq($.identifier, "=", $._path, $.generic_parameter_list),
+          seq($.identifier, "=", $._path, $.type_parameters),
           seq($.type_identifier, "=", optional("distinct"), $._type),
-          seq($.type_identifier, "=", $._type_path, $.generic_parameter_list),
+          seq($.type_identifier, "=", $._type_path, $.type_parameters),
           seq($.type_identifier, "=", $.function_pointer_type)
         ),
         ";"
@@ -537,11 +526,11 @@ module.exports = grammar({
     _struct_declaration: ($) =>
       seq(
         field("name", $.type_identifier),
-        field("attributes", optional($.attribute_list)),
-        field("body", $.field_declaration_list)
+        field("attributes", optional($.attributes)),
+        field("body", $.field_declarations)
       ),
 
-    field_declaration_list: ($) =>
+    field_declarations: ($) =>
       seq(
         "{",
         repeat(
@@ -559,7 +548,7 @@ module.exports = grammar({
         optional("inline"),
         field("type", $._type),
         field("name", $.identifier),
-        field("attributes", optional($.attribute_list)),
+        field("attributes", optional($.attributes)),
         ";"
       ),
 
@@ -570,8 +559,8 @@ module.exports = grammar({
     _field_struct_declaration: ($) =>
       seq(
         field("name", optional($.identifier)),
-        field("attributes", optional($.attribute_list)),
-        field("body", $.field_declaration_list)
+        field("attributes", optional($.attributes)),
+        field("body", $.field_declarations)
       ),
 
     enum_declaration: ($) =>
@@ -579,12 +568,11 @@ module.exports = grammar({
         "enum",
         field("name", $.type_identifier),
         optional(seq(":", field("base_type", $._type))),
-        field("attributes", optional($.attribute_list)),
-        field("body", $.enumerator_list)
+        field("attributes", optional($.attributes)),
+        field("body", $.enumerators)
       ),
 
-    enumerator_list: ($) =>
-      seq("{", commaSep($.enumerator), optional(","), "}"),
+    enumerators: ($) => seq("{", commaSep($.enumerator), optional(","), "}"),
 
     enumerator: ($) =>
       seq(
@@ -596,8 +584,8 @@ module.exports = grammar({
       seq(
         "errtype",
         field("name", $.type_identifier),
-        field("attributes", optional($.attribute_list)),
-        field("body", $.enumerator_list)
+        field("attributes", optional($.attributes)),
+        field("body", $.enumerators)
       ),
 
     // http://stackoverflow.com/questions/13014947/regex-to-match-a-c-style-multiline-comment/36328890#36328890

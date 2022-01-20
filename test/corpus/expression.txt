@@ -368,11 +368,12 @@ o::p();
 (source_file
   (expression_statement
     (call_expression
-      (identifier)))
+      (identifier)
+      (arguments)))
   (expression_statement
     (call_expression
       (identifier)
-      (argument_list
+      (arguments
         (identifier)
         (identifier))))
   (expression_statement
@@ -380,7 +381,7 @@ o::p();
       (field_expression
         (identifier)
         (identifier))
-      (argument_list
+      (arguments
         (identifier))))
   (expression_statement
     (call_expression
@@ -388,19 +389,22 @@ o::p();
         (field_expression
           (identifier)
           (identifier))
-        (identifier))))
+        (identifier))
+      (arguments)))
   (expression_statement
     (call_expression
       (scoped_identifier
         (scoped_identifier
           (identifier)
           (identifier))
-        (identifier))))
+        (identifier))
+      (arguments)))
   (expression_statement
     (call_expression
       (scoped_identifier
         (identifier)
-        (identifier)))))
+        (identifier))
+      (arguments))))
 
 ================================================================================
 Field expressions
@@ -465,7 +469,8 @@ a::b::c.d.e();
               (identifier))
             (identifier))
           (identifier))
-      (identifier)))))
+      (identifier))
+      (arguments))))
 
 ================================================================================
 Try expressions
@@ -486,7 +491,8 @@ if (try res)
         (type_identifier)))
     (identifier)
     (call_expression
-      (identifier)))
+      (identifier)
+      (arguments)))
   (if_statement
     (parenthesized_expression
       (try_expression
@@ -495,7 +501,7 @@ if (try res)
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (string_literal
               (escape_sequence))))))))
 
@@ -518,7 +524,8 @@ if (catch res)
         (type_identifier)))
     (identifier)
     (call_expression
-      (identifier)))
+      (identifier)
+      (arguments)))
   (if_statement
     (parenthesized_expression
       (catch_expression
@@ -527,6 +534,6 @@ if (catch res)
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (string_literal
               (escape_sequence))))))))

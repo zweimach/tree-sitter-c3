@@ -45,20 +45,21 @@ struct Stack
   (function_declaration
     return_type: (primitive_type)
     name: (identifier)
+    parameters: (parameters)
     body: (compound_statement
       (expression_statement
         (call_expression
           function: (scoped_identifier
             path: (identifier)
             name: (identifier))
-          arguments: (argument_list
+          arguments: (arguments
             (string_literal
               (escape_sequence)))))))
   (module_declaration
     name: (scoped_identifier
       path: (identifier)
       name: (identifier))
-    parameters: (generic_parameter_list
+    parameters: (type_parameters
       (type_identifier)
       (type_identifier)))
   (import_declaration
@@ -67,14 +68,14 @@ struct Stack
       name: (identifier)))
   (struct_declaration
     name: (type_identifier)
-    body: (field_declaration_list
+    body: (field_declarations
       (field_declaration
         type: (type_identifier)
         name: (identifier))))
   (function_declaration
     return_type: (type_identifier)
     name: (identifier)
-    parameters: (parameter_list
+    parameters: (parameters
       (parameter
         (type_identifier)
         (identifier))
@@ -91,7 +92,7 @@ struct Stack
           right: (identifier)))))
   (struct_declaration
     name: (type_identifier)
-    body: (field_declaration_list
+    body: (field_declarations
       (field_declaration
         type: (primitive_type)
         name: (identifier))
@@ -180,7 +181,7 @@ define Callback = fn int(char* text, int value);
     (scoped_type_identifier
       (identifier)
       (type_identifier))
-    (generic_parameter_list
+    (type_parameters
       (primitive_type)
       (primitive_type)))
   (define_declaration
@@ -188,14 +189,14 @@ define Callback = fn int(char* text, int value);
     (scoped_identifier
       (identifier)
       (identifier))
-    (generic_parameter_list
+    (type_parameters
       (primitive_type)
       (primitive_type)))
   (define_declaration
     (type_identifier)
     (function_pointer_type
       (primitive_type)
-      (parameter_list
+      (parameters
         (parameter
           (pointer_type
             (primitive_type))
@@ -232,7 +233,7 @@ extern fn int sum(int... ints);
     (failable_type
       (primitive_type))
     (identifier)
-    (parameter_list
+    (parameters
       (parameter
         (primitive_type)
         (identifier))
@@ -251,14 +252,14 @@ extern fn int sum(int... ints);
   (function_declaration
     (primitive_type)
     (identifier)
-    (parameter_list
+    (parameters
       (parameter
         (primitive_type)
         (identifier))
       (parameter
         (primitive_type)
         (identifier)))
-    (attribute_list
+    (attributes
       (attribute
         (identifier)))
     (compound_statement
@@ -269,7 +270,7 @@ extern fn int sum(int... ints);
   (function_declaration
     (primitive_type)
     (identifier)
-    (parameter_list
+    (parameters
       (parameter
         (primitive_type)
         (identifier))
@@ -285,7 +286,7 @@ extern fn int sum(int... ints);
   (function_declaration
     (primitive_type)
     (identifier)
-    (parameter_list
+    (parameters
       (parameter
         (pointer_type
           (primitive_type))
@@ -294,7 +295,7 @@ extern fn int sum(int... ints);
   (function_declaration
     (primitive_type)
     (identifier)
-    (parameter_list
+    (parameters
       (variadic_parameter
         (primitive_type)
         (identifier)))))
@@ -323,7 +324,7 @@ fn bool Player.is_alive(Player* p) {
 (source_file
   (struct_declaration
     (type_identifier)
-    (field_declaration_list
+    (field_declarations
       (field_declaration
         (primitive_type)
         (identifier))
@@ -333,10 +334,10 @@ fn bool Player.is_alive(Player* p) {
         (identifier))))
   (struct_declaration
     (type_identifier)
-    (attribute_list
+    (attributes
       (attribute
         (identifier)))
-    (field_declaration_list
+    (field_declarations
       (field_declaration
         (type_identifier)
         (identifier))
@@ -347,14 +348,14 @@ fn bool Player.is_alive(Player* p) {
       (field_declaration
         (primitive_type)
         (identifier)
-        (attribute_list
+        (attributes
           (attribute
             (identifier))))))
   (function_declaration
     (primitive_type)
     (type_identifier)
     (identifier)
-    (parameter_list
+    (parameters
       (parameter
         (pointer_type
           (type_identifier))
@@ -385,7 +386,7 @@ union S {
 (source_file
   (union_declaration
     (type_identifier)
-    (field_declaration_list
+    (field_declarations
       (field_declaration
         (primitive_type)
         (identifier))
@@ -394,7 +395,7 @@ union S {
         (identifier))
       (field_struct_declaration
         (identifier)
-        (field_declaration_list
+        (field_declarations
           (field_declaration
             (primitive_type)
             (identifier))
@@ -428,10 +429,10 @@ enum TokenKind @packed @opaque {
 (source_file
   (enum_declaration
     (type_identifier)
-    (attribute_list
+    (attributes
       (attribute
         (identifier)))
-    (enumerator_list
+    (enumerators
       (enumerator
         (const_identifier))
       (enumerator
@@ -439,7 +440,7 @@ enum TokenKind @packed @opaque {
   (enum_declaration
     (type_identifier)
     (primitive_type)
-    (enumerator_list
+    (enumerators
       (enumerator
         (const_identifier)
         (integer_literal))
@@ -449,12 +450,12 @@ enum TokenKind @packed @opaque {
         (const_identifier))))
   (enum_declaration
     (type_identifier)
-    (attribute_list
+    (attributes
       (attribute
         (identifier))
       (attribute
         (identifier)))
-    (enumerator_list
+    (enumerators
       (enumerator
         (const_identifier))
       (enumerator
@@ -477,7 +478,7 @@ errtype IoError
 (source_file
   (error_declaration
     name: (type_identifier)
-    body: (enumerator_list
+    body: (enumerators
       (enumerator
         name: (const_identifier))
       (enumerator

@@ -102,7 +102,7 @@ while (Point* p = getPoint())
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (integer_literal))))))
   (while_statement
     (parenthesized_declaration
@@ -110,16 +110,18 @@ while (Point* p = getPoint())
         (type_identifier))
       (identifier)
       (call_expression
-        (identifier)))
+        (identifier)
+        (arguments)))
     (compound_statement
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (call_expression
               (field_expression
                 (identifier)
-                (identifier)))))))))
+                (identifier))
+              (arguments))))))))
 
 ================================================================================
 For statements
@@ -158,7 +160,7 @@ for (;; i++) {
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (identifier))))))
   (for_statement
     (assignment_expression
@@ -173,14 +175,14 @@ for (;; i++) {
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (identifier))))))
   (for_statement
     (compound_statement
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (integer_literal))))))
   (for_statement
     (binary_expression
@@ -190,7 +192,7 @@ for (;; i++) {
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (integer_literal))))))
   (for_statement
     (unary_expression
@@ -199,7 +201,7 @@ for (;; i++) {
       (expression_statement
         (call_expression
           (identifier)
-          (argument_list
+          (arguments
             (integer_literal)))))))
 
 ================================================================================
@@ -223,7 +225,8 @@ defer {
   (defer_statement
     (expression_statement
       (call_expression
-        (identifier))))
+        (identifier)
+        (arguments))))
   (defer_statement
     (compound_statement
       (expression_statement
@@ -239,11 +242,14 @@ defer {
       (defer_statement
         (expression_statement
           (call_expression
-            (identifier))))
+            (identifier)
+            (arguments))))
       (expression_statement
         (call_expression
-          (identifier)))
+          (identifier)
+          (arguments)))
       (defer_statement
         (expression_statement
           (call_expression
-            (identifier)))))))
+            (identifier)
+            (arguments)))))))

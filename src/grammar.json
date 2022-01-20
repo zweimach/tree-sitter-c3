@@ -584,11 +584,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "initializer_list"
+          "name": "initializers"
         }
       ]
     },
-    "initializer_list": {
+    "initializers": {
       "type": "SEQ",
       "members": [
         {
@@ -2071,36 +2071,14 @@
             "type": "FIELD",
             "name": "arguments",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "argument_list"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_argument_list"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "arguments"
             }
           }
         ]
       }
     },
-    "_argument_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
-    },
-    "argument_list": {
+    "arguments": {
       "type": "SEQ",
       "members": [
         {
@@ -2386,17 +2364,8 @@
           "type": "FIELD",
           "name": "parameters",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "parameter_list"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_parameter_list"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "parameters"
           }
         }
       ]
@@ -2483,7 +2452,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "generic_parameter_list"
+                "name": "type_parameters"
               },
               {
                 "type": "BLANK"
@@ -2493,7 +2462,7 @@
         }
       ]
     },
-    "generic_parameter_list": {
+    "type_parameters": {
       "type": "SEQ",
       "members": [
         {
@@ -2643,17 +2612,8 @@
           "type": "FIELD",
           "name": "parameters",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "parameter_list"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_parameter_list"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "parameters"
           }
         },
         {
@@ -2664,7 +2624,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -2694,20 +2654,7 @@
         }
       ]
     },
-    "_parameter_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "("
-        },
-        {
-          "type": "STRING",
-          "value": ")"
-        }
-      ]
-    },
-    "parameter_list": {
+    "parameters": {
       "type": "SEQ",
       "members": [
         {
@@ -2844,7 +2791,7 @@
         }
       ]
     },
-    "attribute_list": {
+    "attributes": {
       "type": "REPEAT1",
       "content": {
         "type": "SYMBOL",
@@ -3029,7 +2976,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "generic_parameter_list"
+                  "name": "type_parameters"
                 }
               ]
             },
@@ -3079,7 +3026,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "generic_parameter_list"
+                  "name": "type_parameters"
                 }
               ]
             },
@@ -3153,7 +3100,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -3166,12 +3113,12 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "field_declaration_list"
+            "name": "field_declarations"
           }
         }
       ]
     },
-    "field_declaration_list": {
+    "field_declarations": {
       "type": "SEQ",
       "members": [
         {
@@ -3243,7 +3190,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -3310,7 +3257,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -3323,7 +3270,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "field_declaration_list"
+            "name": "field_declarations"
           }
         }
       ]
@@ -3376,7 +3323,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -3389,12 +3336,12 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "enumerator_list"
+            "name": "enumerators"
           }
         }
       ]
     },
-    "enumerator_list": {
+    "enumerators": {
       "type": "SEQ",
       "members": [
         {
@@ -3513,7 +3460,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "attribute_list"
+                "name": "attributes"
               },
               {
                 "type": "BLANK"
@@ -3526,7 +3473,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "enumerator_list"
+            "name": "enumerators"
           }
         }
       ]
@@ -3580,16 +3527,7 @@
       "name": "comment"
     }
   ],
-  "conflicts": [
-    [
-      "_argument_list",
-      "argument_list"
-    ],
-    [
-      "_parameter_list",
-      "parameter_list"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [],
   "inline": [
