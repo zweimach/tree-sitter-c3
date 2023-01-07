@@ -4122,10 +4122,6 @@
     "named": false
   },
   {
-    "type": "errtype",
-    "named": false
-  },
-  {
     "type": "escape_sequence",
     "named": true
   },
@@ -4135,6 +4131,10 @@
   },
   {
     "type": "false",
+    "named": false
+  },
+  {
+    "type": "fault",
     "named": false
   },
   {

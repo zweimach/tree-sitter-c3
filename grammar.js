@@ -582,7 +582,7 @@ module.exports = grammar({
 
     error_declaration: ($) =>
       seq(
-        "errtype",
+        "fault",
         field("name", $.type_identifier),
         field("attributes", optional($.attributes)),
         field("body", $.enumerators)
