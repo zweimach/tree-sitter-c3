@@ -4190,11 +4190,7 @@
     "named": false
   },
   {
-    "type": "iptrdiff",
-    "named": false
-  },
-  {
-    "type": "isize",
+    "type": "isz",
     "named": false
   },
   {
@@ -4262,15 +4258,11 @@
     "named": false
   },
   {
-    "type": "uptrdiff",
-    "named": false
-  },
-  {
     "type": "ushort",
     "named": false
   },
   {
-    "type": "usize",
+    "type": "usz",
     "named": false
   },
   {

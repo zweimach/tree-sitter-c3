@@ -8,23 +8,18 @@ ushort a;
 uint a;
 ulong a;
 uptr a;
-uptrdiff a;
+usz a;
 
 ichar a;
 short a;
 int a;
 long a;
 iptr a;
-iptrdiff a;
-
-isize a;
-usize a;
+isz a;
 
 ---
 
 (source_file
-  (var_declaration (primitive_type) (identifier))
-  (var_declaration (primitive_type) (identifier))
   (var_declaration (primitive_type) (identifier))
   (var_declaration (primitive_type) (identifier))
   (var_declaration (primitive_type) (identifier))

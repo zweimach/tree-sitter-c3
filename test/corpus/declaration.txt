@@ -16,18 +16,18 @@ import std::mem;
 
 struct Foo
 {
-   Type1 a;
+    Type1 a;
 }
 
 fn Type2 test(Type2 b, Foo *foo)
 {
-   return foo.a + b;
+    return foo.a + b;
 }
 
 struct Stack
 {
-    usize capacity;
-    usize size;
+    usz capacity;
+    usz size;
     Type1* elems;
 }
 

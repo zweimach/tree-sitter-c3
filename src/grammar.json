@@ -2287,19 +2287,11 @@
         },
         {
           "type": "STRING",
-          "value": "iptrdiff"
+          "value": "isz"
         },
         {
           "type": "STRING",
-          "value": "uptrdiff"
-        },
-        {
-          "type": "STRING",
-          "value": "isize"
-        },
-        {
-          "type": "STRING",
-          "value": "usize"
+          "value": "usz"
         }
       ]
     },

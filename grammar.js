@@ -416,10 +416,8 @@ module.exports = grammar({
         "ulong",
         "iptr",
         "uptr",
-        "iptrdiff",
-        "uptrdiff",
-        "isize",
-        "usize"
+        "isz",
+        "usz"
       ),
 
     _float_type: ($) => choice("half", "float", "double", "quad"),
