@@ -216,7 +216,8 @@ module.exports = grammar({
         '"'
       ),
 
-    _raw_string_literal: ($) => seq("`", repeat(token.immediate(/[^`]/)), "`"),
+    _raw_string_literal: ($) =>
+      seq("`", repeat(token.immediate(/[^`]|``/)), "`"),
 
     _multiline_string_literal: ($) =>
       seq(
