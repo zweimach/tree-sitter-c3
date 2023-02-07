@@ -1,3 +1,5 @@
+(identifier) @variable
+
 [
   "const"
   "enum"
@@ -21,8 +23,9 @@
 ] @keyword.return
 
 [
-  "fn"
-] @keyword.function
+  "while"
+  "for"
+] @repeat
 
 [
   "while"
@@ -104,7 +107,6 @@
   "}"
 ] @punctuation.bracket
 
-(string_literal) @string
 (escape_sequence) @string.escape
 
 (nil_literal) @constant.builtin

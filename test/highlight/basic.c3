@@ -3,7 +3,7 @@ module package::basic;
 //     ^ namespace
 //            ^ punctuation.delimiter
 //               ^namespace
-
+//                   ^ punctuation.delimiter
 import std::io;
 // <- include
 //      ^ namespace
