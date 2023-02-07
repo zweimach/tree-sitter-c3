@@ -7,7 +7,9 @@
     "prebuild": "tree-sitter generate",
     "build": "node-gyp build",
     "pretest": "tree-sitter generate",
-    "test": "tree-sitter test"
+    "test": "tree-sitter test",
+    "test:only": "tree-sitter test",
+    "test:examples": "tree-sitter parse --quiet --stat 'examples/**/*.c3'"
   },
   "repository": {
     "type": "git",
@@ -27,5 +29,14 @@
   },
   "devDependencies": {
     "tree-sitter-cli": "^0.20.7"
-  }
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.c3",
+      "injection-regex": "c3",
+      "file-types": [
+        "c3"
+      ]
+    }
+  ]
 }
