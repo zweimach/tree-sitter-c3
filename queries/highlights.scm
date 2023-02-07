@@ -2,7 +2,6 @@
   "const"
   "enum"
   "extern"
-  "fn"
   "inline"
   "struct"
   "union"
