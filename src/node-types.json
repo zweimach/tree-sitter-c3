@@ -2196,6 +2196,10 @@
             "named": true
           },
           {
+            "type": "attributes",
+            "named": true
+          },
+          {
             "type": "binary_expression",
             "named": true
           },
