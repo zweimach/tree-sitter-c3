@@ -1,67 +1,66 @@
 module package::basic;
 // <- keyword
-//     ^ namespace
+//      ^ [variable namespace]
 //            ^ punctuation.delimiter
-//               ^namespace
+//               ^ [variable namespace]
+//                   ^ punctuation.delimiter
 
 import std::io;
 // <- include
-//      ^ namespace
+//      ^ [variable namespace]
 //        ^ punctuation.delimiter
-//          ^ namespace
+//          ^ [variable namespace]
 //            ^ punctuation.delimiter
 
 fn void! main(int argc, char** argv) {
 // <- keyword
 //  ^ type
 //     ^ operator
-//        ^ function
+//        ^ [variable function]
 //           ^ punctuation.bracket
 //             ^ type
-//                 ^ parameter
+//                 ^ variable
 //                    ^ punctuation.delimiter
 //                       ^ type
 //                          ^ operator
 //                           ^ operator
-//                               ^ parameter
+//                               ^ variable
 //                                 ^ punctuation.bracket
 //                                   ^ punctuation.bracket
-
-io::printf("Hello, World!\n");
-// <- namespace
-// ^ punctuation.delimiter
-//   ^ function
-//        ^ punctuation.bracket
-//            ^ string
-//                       ^ string.escape
-//                          ^ punctuation.bracket
-//                           ^ punctuation.delimiter
-
+    io::printf("Hello, World!\n");
+    // <- [variable namespace]
+    // ^ punctuation.delimiter
+    //   ^ [variable function]
+    //        ^ punctuation.bracket
+    //            ^ string
+    //                       ^ string.escape
+    //                          ^ punctuation.bracket
+    //                           ^ punctuation.delimiter
 }
 // <- punctuation.bracket
 
 fn int square(int x, int y) {
 // <- keyword
 //  ^ type
-//      ^ function
+//      ^ [variable function]
 //           ^ punctuation.bracket
 //             ^ type
-//                ^ parameter
+//                ^ variable
 //                 ^ punctuation.delimiter
 //                    ^ type
-//                       ^ parameter
+//                       ^ variable
 //                        ^ punctuation.bracket
 //                          ^ punctuation.bracket
-
-int s = x * y;
-// <- type
-//  ^ variable
-//    ^ operator
-//      ^ variable
-//          ^ variable
-//           ^ punctuation.delimiter
-
-return s;
-// <- keyword.return
-//     ^ variable
-//      ^ punctuation.delimiter
+    int s = x * y;
+    // <- type
+    //  ^ variable
+    //    ^ operator
+    //      ^ variable
+    //          ^ variable
+    //           ^ punctuation.delimiter
+    return s;
+    // <- keyword.return
+    //     ^ variable
+    //      ^ punctuation.delimiter
+}
+// <- punctuation.bracket
