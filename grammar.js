@@ -55,7 +55,7 @@ module.exports = grammar({
     $._field_struct_declaration,
   ],
 
-  conflicts: ($) => [],
+  conflicts: ($) => [[$.compound_statement, $.initializers]],
 
   word: ($) => $.identifier,
 
@@ -140,7 +140,7 @@ module.exports = grammar({
       ),
 
     defer_statement: ($) =>
-      seq("defer", choice($._statement, $.compound_statement)),
+      seq("defer", choice($.expression_statement, $.compound_statement)),
 
     // Identifiers
 
@@ -183,7 +183,20 @@ module.exports = grammar({
 
     _initializer: ($) => choice($._expression, $.initializers),
 
-    initializers: ($) => seq("{", commaSep($._expression), optional(","), "}"),
+    initializers: ($) =>
+      seq(
+        "{",
+        commaSep(choice($._expression, $.initializer_pair, $.initializers)),
+        optional(","),
+        "}"
+      ),
+
+    initializer_pair: ($) =>
+      seq(
+        field("field", repeat1(seq(".", $.identifier))),
+        "=",
+        field("value", choice($._expression, $.initializers))
+      ),
 
     _literal: ($) =>
       choice(
@@ -192,7 +205,9 @@ module.exports = grammar({
         $.string_literal,
         $.integer_literal,
         $.float_literal,
-        $.nil_literal
+        $.nil_literal,
+        $.initializers,
+        $.compound_literal
       ),
 
     boolean_literal: ($) => choice("true", "false"),
@@ -276,6 +291,9 @@ module.exports = grammar({
       ),
 
     nil_literal: ($) => "nil",
+
+    compound_literal: ($) =>
+      seq(field("type", $.type_identifier), field("value", $.initializers)),
 
     assignment_expression: ($) =>
       prec.left(
@@ -501,7 +519,7 @@ module.exports = grammar({
     _var_declaration: ($) =>
       seq(
         field("type", $._type),
-        $.identifier,
+        field("name", $.identifier),
         optional(seq("=", field("value", $._initializer)))
       ),
 

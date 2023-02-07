@@ -170,6 +170,56 @@ char* j = b64"Rk9PQkFSMTE=";
   (var_declaration (pointer_type (primitive_type)) (identifier) (string_literal)))
 
 ================================================================================
+Compound literals
+================================================================================
+
+Foo { 1, 2.0, .field = "string" };
+LinkedList { .allocator = alloc };
+LinkedList a = { .allocator = alloc, .size = 0 };
+*list = { .allocator = alloc, .size = 0 };
+
+---
+
+(source_file
+  (expression_statement
+    (compound_literal
+      type: (type_identifier)
+      value: (initializers
+        (integer_literal)
+        (float_literal)
+        (initializer_pair
+          field: (identifier)
+          value: (string_literal)))))
+  (expression_statement
+    (compound_literal
+      type: (type_identifier)
+      value: (initializers
+        (initializer_pair
+          field: (identifier)
+          value: (identifier)))))
+  (var_declaration
+    type: (type_identifier)
+    name: (identifier)
+    value: (initializers
+      (initializer_pair
+        field: (identifier)
+        value: (identifier))
+      (initializer_pair
+        field: (identifier)
+        value: (integer_literal))))
+  (expression_statement
+    (assignment_expression
+      left: (unary_expression
+        (identifier))
+      right: (initializers
+        (initializer_pair
+          field: (identifier)
+          value: (identifier))
+        (initializer_pair
+          field: (identifier)
+          value: (integer_literal))))))
+
+================================================================================
 Assignment expressions
 ================================================================================
 

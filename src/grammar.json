@@ -407,7 +407,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_statement"
+              "name": "expression_statement"
             },
             {
               "type": "SYMBOL",
@@ -602,8 +602,21 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "_expression"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "_expression"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "initializer_pair"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "initializers"
+                    }
+                  ]
                 },
                 {
                   "type": "REPEAT",
@@ -615,8 +628,21 @@
                         "value": ","
                       },
                       {
-                        "type": "SYMBOL",
-                        "name": "_expression"
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "_expression"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "initializer_pair"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "initializers"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -646,6 +672,52 @@
         }
       ]
     },
+    "initializer_pair": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "field",
+          "content": {
+            "type": "REPEAT1",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_expression"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "initializers"
+              }
+            ]
+          }
+        }
+      ]
+    },
     "_literal": {
       "type": "CHOICE",
       "members": [
@@ -672,6 +744,14 @@
         {
           "type": "SYMBOL",
           "name": "nil_literal"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "initializers"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "compound_literal"
         }
       ]
     },
@@ -1153,6 +1233,27 @@
     "nil_literal": {
       "type": "STRING",
       "value": "nil"
+    },
+    "compound_literal": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "type",
+          "content": {
+            "type": "SYMBOL",
+            "name": "type_identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "initializers"
+          }
+        }
+      ]
     },
     "assignment_expression": {
       "type": "PREC_LEFT",
@@ -2894,8 +2995,12 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "identifier"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
         },
         {
           "type": "CHOICE",
@@ -3519,7 +3624,12 @@
       "name": "comment"
     }
   ],
-  "conflicts": [],
+  "conflicts": [
+    [
+      "compound_statement",
+      "initializers"
+    ]
+  ],
   "precedences": [],
   "externals": [],
   "inline": [
