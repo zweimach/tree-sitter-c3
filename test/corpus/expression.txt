@@ -220,6 +220,56 @@ LinkedList a = { .allocator = alloc, .size = 0 };
           value: (integer_literal))))))
 
 ================================================================================
+Lambda expressions
+================================================================================
+
+CallbackFn f = fn (i) => i + 1;
+apply(x, fn (i) => i * i);
+apply(x, fn int(int i) { return i * i; });
+
+---
+
+(source_file
+  (var_declaration
+    (type_identifier)
+    (identifier)
+    (lambda_expression
+      (parameters
+        (parameter
+          (identifier)))
+      (binary_expression
+        (identifier)
+        (integer_literal))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (arguments
+        (identifier)
+        (lambda_expression
+          (parameters
+            (parameter
+              (identifier)))
+          (binary_expression
+            (identifier)
+            (identifier))))))
+  (expression_statement
+    (call_expression
+      (identifier)
+      (arguments
+        (identifier)
+        (lambda_expression
+          (primitive_type)
+          (parameters
+            (parameter
+              (primitive_type)
+              (identifier)))
+          (compound_statement
+            (return_statement
+              (binary_expression
+                (identifier)
+                (identifier)))))))))
+
+================================================================================
 Assignment expressions
 ================================================================================
 

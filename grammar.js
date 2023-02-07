@@ -53,9 +53,15 @@ module.exports = grammar({
     $._var_declaration,
     $._struct_declaration,
     $._field_struct_declaration,
+    $._function_body,
+    $._lambda_body,
   ],
 
-  conflicts: ($) => [[$.compound_statement, $.initializers]],
+  conflicts: ($) => [
+    [$.compound_statement, $.initializers],
+    [$.assignment_expression, $.lambda_expression],
+    [$.range_expression, $.lambda_expression],
+  ],
 
   word: ($) => $.identifier,
 
@@ -165,6 +171,7 @@ module.exports = grammar({
     _expression: ($) =>
       choice(
         $._literal,
+        $.lambda_expression,
         $.assignment_expression,
         $.unary_expression,
         $.binary_expression,
@@ -294,6 +301,16 @@ module.exports = grammar({
 
     compound_literal: ($) =>
       seq(field("type", $.type_identifier), field("value", $.initializers)),
+
+    lambda_expression: ($) =>
+      seq(
+        "fn",
+        optional(field("return_type", $._type)),
+        field("parameters", $.parameters),
+        field("body", choice($.compound_statement, $._lambda_body))
+      ),
+
+    _lambda_body: ($) => seq("=>", $._expression),
 
     assignment_expression: ($) =>
       prec.left(
@@ -473,7 +490,7 @@ module.exports = grammar({
     function_declaration: ($) =>
       choice(
         seq("extern", $._function_signature, ";"),
-        seq($._function_signature, field("body", $.compound_statement))
+        seq($._function_signature, field("body", $._function_body))
       ),
 
     _function_signature: ($) =>
@@ -486,15 +503,21 @@ module.exports = grammar({
         field("attributes", optional($.attributes))
       ),
 
+    _function_body: ($) =>
+      choice($.compound_statement, seq($._lambda_body, ";")),
+
     compound_statement: ($) => seq("{", repeat($._statement), "}"),
 
     parameters: ($) =>
       seq("(", commaSep(choice($.parameter, $.variadic_parameter)), ")"),
 
     parameter: ($) =>
-      seq(
-        $._type,
-        optional(seq($.identifier, optional(seq("=", $._initializer))))
+      choice(
+        seq(
+          $._type,
+          optional(seq($.identifier, optional(seq("=", $._initializer))))
+        ),
+        seq(optional($._type), $.identifier, optional(seq("=", $._initializer)))
       ),
 
     variadic_parameter: ($) => choice("...", seq($._type, "...", $.identifier)),

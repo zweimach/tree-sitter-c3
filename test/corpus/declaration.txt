@@ -142,8 +142,10 @@ define bar_var = foo_var;
 define BarFoo = bar::Foo;
 define bar_foo = bar::foo;
 define FooFloat = foo_test::Foo<float, double>;
+define FooFloat2 = Foo<float, double>;
 define testFloat = foo_test::test<float, double>;
 define Callback = fn int(char* text, int value);
+define PI = std::math::PI;
 
 ---
 
@@ -185,6 +187,12 @@ define Callback = fn int(char* text, int value);
       (primitive_type)
       (primitive_type)))
   (define_declaration
+    (type_identifier)
+    (type_identifier)
+    (type_parameters
+      (primitive_type)
+      (primitive_type)))
+  (define_declaration
     (identifier)
     (scoped_identifier
       (identifier)
@@ -203,7 +211,14 @@ define Callback = fn int(char* text, int value);
           (identifier))
         (parameter
           (primitive_type)
-          (identifier))))))
+            (identifier)))))
+  (define_declaration
+    (type_identifier)
+    (scoped_type_identifier
+      (scoped_identifier
+        (identifier)
+        (identifier))
+      (type_identifier))))
 
 ================================================================================
 Function declarations
@@ -221,6 +236,8 @@ fn int add(int x, int y) @inline {
 fn int multiply(int x, int y = 1) {
     return x * y;
 }
+
+fn int short(char* name) => name == "is_short";
 
 extern fn void printf(char* str, ...);
 
@@ -283,6 +300,17 @@ extern fn int sum(int... ints);
         (binary_expression
           (identifier)
           (identifier)))))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameters
+      (parameter
+        (pointer_type
+          (primitive_type))
+        (identifier)))
+    (binary_expression
+      (identifier)
+      (string_literal)))
   (function_declaration
     (primitive_type)
     (identifier)
