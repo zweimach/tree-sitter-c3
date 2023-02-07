@@ -541,7 +541,10 @@ module.exports = grammar({
       ),
 
     _function_body: ($) =>
-      choice($.compound_statement, seq($._lambda_body, ";")),
+      choice(
+        $.compound_statement,
+        seq($._lambda_body, optional($.attributes), ";")
+      ),
 
     compound_statement: ($) => seq("{", repeat($._statement), "}"),
 

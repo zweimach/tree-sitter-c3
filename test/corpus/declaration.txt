@@ -239,6 +239,8 @@ fn int multiply(int x, int y = 1) {
 
 fn int short(char* name) => name == "is_short";
 
+fn int quick(int speed) => speed >= 120 @inline;
+
 extern fn void printf(char* str, ...);
 
 extern fn int sum(int... ints);
@@ -311,6 +313,19 @@ extern fn int sum(int... ints);
     (binary_expression
       (identifier)
       (string_literal)))
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameters
+      (parameter
+        (primitive_type)
+        (identifier)))
+    (binary_expression
+      (identifier)
+      (integer_literal))
+    (attributes
+      (attribute
+        (identifier))))
   (function_declaration
     (primitive_type)
     (identifier)
