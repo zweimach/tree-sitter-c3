@@ -637,3 +637,55 @@ if (catch res)
           (arguments
             (string_literal
               (escape_sequence))))))))
+
+================================================================================
+Block expressions
+================================================================================
+
+{|
+        io::printf("Hello ");
+|};
+
+int a = {|
+        if (x > 0) return x * 2;
+        if (x == 0) return 100;
+        return -x;
+    |};
+
+---
+
+(source_file
+  (expression_statement
+    (block_expression
+      (expression_statement
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (arguments
+            (string_literal))))))
+
+  (var_declaration
+        (primitive_type)
+        (identifier)
+        (block_expression
+          (if_statement
+            (parenthesized_expression
+              (binary_expression
+                (identifier)
+                (integer_literal)))
+            (return_statement
+              (binary_expression
+                (identifier)
+                (integer_literal))))
+          (if_statement
+            (parenthesized_expression
+              (binary_expression
+                (identifier)
+                (integer_literal)))
+            (return_statement
+              (integer_literal)))
+          (return_statement
+            (unary_expression
+              (identifier)))))
+)

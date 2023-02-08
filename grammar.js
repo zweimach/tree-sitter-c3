@@ -91,6 +91,7 @@ module.exports = grammar({
 
     expression_statement: ($) => seq($._expression, ";"),
 
+   
     _declaration_statement: ($) =>
       choice(
         $.module_declaration,
@@ -219,6 +220,7 @@ module.exports = grammar({
         $.field_expression,
         $.try_expression,
         $.catch_expression,
+        $.block_expression,
         $.identifier,
         $.scoped_identifier
       ),
@@ -338,6 +340,9 @@ module.exports = grammar({
 
     compound_literal: ($) =>
       seq(field("type", $.type_identifier), field("value", $.initializers)),
+
+    block_expression: ($) => seq("{|", repeat($._statement), "|}"),
+
 
     lambda_expression: ($) =>
       seq(
