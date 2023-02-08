@@ -222,6 +222,45 @@ for (;; i++) {
           (identifier)
           (arguments
             (integer_literal)))))))
+================================================================================
+Foreach statements
+================================================================================
+
+fn void example_foreach(float[] values) 
+{
+    foreach (index, value : values) 
+    {
+        io::printfn("%d: %f", index, value);
+    }
+}
+
+---
+
+(source_file
+  (function_declaration
+    (primitive_type)
+    (identifier)
+    (parameters
+      (parameter
+        (array_type
+          (primitive_type))
+        (identifier)))
+    (compound_statement
+      (foreach_statement
+        (identifier)
+        (identifier)
+        (identifier)
+        (compound_statement
+          (expression_statement
+            (call_expression
+              (scoped_identifier
+                (identifier)
+                (identifier))
+              (arguments
+                (string_literal)
+                (identifier)
+                (identifier)))))))))
+
 
 ================================================================================
 Defer statements
