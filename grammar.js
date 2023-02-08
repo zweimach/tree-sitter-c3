@@ -81,7 +81,7 @@ module.exports = grammar({
         $.return_statement,
         $.if_statement,
         $.while_statement,
-        $.do_statement, 
+        $.do_statement,
         $.for_statement,
         $.foreach_statement,
         $.defer_statement,
@@ -92,7 +92,6 @@ module.exports = grammar({
 
     expression_statement: ($) => seq($._expression, ";"),
 
-   
     _declaration_statement: ($) =>
       choice(
         $.module_declaration,
@@ -132,10 +131,8 @@ module.exports = grammar({
         field("body", choice($._statement, $.compound_statement))
       ),
 
-    do_statement: ($) => seq(
-      "do",
-      field("body", choice($._statement, $.compound_statement))
-    ),
+    do_statement: ($) =>
+      seq("do", field("body", choice($._statement, $.compound_statement))),
 
     parenthesized_declaration: ($) => seq("(", $._var_declaration, ")"),
 
@@ -155,7 +152,7 @@ module.exports = grammar({
       ),
 
     foreach_statement: ($) =>
-     seq(
+      seq(
         "foreach",
         "(",
         field("index", $.identifier),
@@ -170,36 +167,33 @@ module.exports = grammar({
     defer_statement: ($) =>
       seq("defer", choice($.expression_statement, $.compound_statement)),
 
-      switch_statement: ($) => seq(
-        'switch',
-        optional(field('value', choice($.parenthesized_expression, $.parenthesized_declaration))),
-        field('body', $.switch_body)
+    switch_statement: ($) =>
+      seq(
+        "switch",
+        optional(
+          field(
+            "value",
+            choice($.parenthesized_expression, $.parenthesized_declaration)
+          )
+        ),
+        field("body", $.switch_body)
       ),
-  
-      //
-      //Statement components
-      //
-      
-    switch_body: $ => seq(
-      '{',
-      repeat(choice($.switch_case, $.switch_default)),
-      '}'
-    ),
-      
-    switch_case: $ => seq(
-      'case',
-      field('value', choice($._expression, $.const_identifier)),
-      ':',
-      optional( repeat($._statement)), 
-      optional($.nextcase_declaration)
-    ),
-  
-    switch_default: $ => seq(
-      'default',
-      ':',
-      field('body', repeat($._statement))
-    ),
-  
+
+    switch_body: ($) =>
+      seq("{", repeat(choice($.switch_case, $.switch_default)), "}"),
+
+    switch_case: ($) =>
+      seq(
+        "case",
+        field("value", choice($._expression, $.const_identifier)),
+        ":",
+        optional(repeat($._statement)),
+        optional($.nextcase_declaration)
+      ),
+
+    switch_default: ($) =>
+      seq("default", ":", field("body", repeat($._statement))),
+
     // Identifiers
 
     _path: ($) => choice($.scoped_identifier, $.identifier),
@@ -356,7 +350,6 @@ module.exports = grammar({
       seq(field("type", $.type_identifier), field("value", $.initializers)),
 
     block_expression: ($) => seq("{|", repeat($._statement), "|}"),
-
 
     lambda_expression: ($) =>
       seq(
@@ -617,10 +610,13 @@ module.exports = grammar({
         ),
         ";"
       ),
-        
-    nextcase_declaration: ($) => seq(
-      "nextcase", 
-      optional(seq(choice($._expression, $.const_identifier))), ";"),
+
+    nextcase_declaration: ($) =>
+      seq(
+        "nextcase",
+        optional(seq(choice($._expression, $.const_identifier))),
+        ";"
+      ),
 
     struct_declaration: ($) => seq("struct", $._struct_declaration),
 

@@ -127,7 +127,7 @@ while (Point* p = getPoint())
 Do statements
 ================================================================================
 
-do 
+do
 {
   print(i);
 };
@@ -222,45 +222,33 @@ for (;; i++) {
           (identifier)
           (arguments
             (integer_literal)))))))
+
 ================================================================================
 Foreach statements
 ================================================================================
 
-fn void example_foreach(float[] values) 
+foreach (index, value : values)
 {
-    foreach (index, value : values) 
-    {
-        io::printfn("%d: %f", index, value);
-    }
+    io::printfn("%d: %f", index, value);
 }
 
 ---
 
 (source_file
-  (function_declaration
-    (primitive_type)
+  (foreach_statement
     (identifier)
-    (parameters
-      (parameter
-        (array_type
-          (primitive_type))
-        (identifier)))
+    (identifier)
+    (identifier)
     (compound_statement
-      (foreach_statement
-        (identifier)
-        (identifier)
-        (identifier)
-        (compound_statement
-          (expression_statement
-            (call_expression
-              (scoped_identifier
-                (identifier)
-                (identifier))
-              (arguments
-                (string_literal)
-                (identifier)
-                (identifier)))))))))
-
+      (expression_statement
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+          (arguments
+            (string_literal)
+            (identifier)
+            (identifier)))))))
 
 ================================================================================
 Defer statements
@@ -373,29 +361,26 @@ switch (i) {
 ---
 
 (source_file
- 
- (switch_statement
+
+  (switch_statement
     (switch_body
-      
       (switch_case
         (integer_literal))
-      
+
       (switch_case
         (integer_literal)
         (expression_statement
           (call_expression
           (identifier)
           (arguments)))
-          (nextcase_declaration)
-      )
+          (nextcase_declaration))
 
       (switch_case
         (integer_literal)
          (expression_statement
           (call_expression
           (identifier)
-          (arguments)))
-      )
+          (arguments))))
 
       (switch_default
          (expression_statement
@@ -403,47 +388,34 @@ switch (i) {
           (identifier)
           (arguments)))
         (expression_statement
-          (identifier))
-      )      
-    )
-  )
+          (identifier)))))
 
   (switch_statement
     (switch_body
-
       (switch_case
         (boolean_literal)
-        (return_statement)
-      )
-    )
-  )
+        (return_statement))))
 
   (switch_statement
     (parenthesized_expression
       (identifier))
-    
+
     (switch_body
-      
+
       (switch_case
         (integer_literal)
         (expression_statement
           (call_expression
             (identifier)
             (arguments)))
-        (nextcase_declaration) 
-      )
-      
+        (nextcase_declaration))
+
       (switch_case
         (integer_literal)
         (expression_statement
           (call_expression
             (identifier)
-            (arguments)
-          )
-        )
-      )
-    )
-  )
+            (arguments))))))
 
   (switch_statement
     (parenthesized_expression
@@ -507,32 +479,27 @@ switch (i) {
           (identifier)
           (arguments)))
         (nextcase_declaration
-          (integer_literal))
-      )
+          (integer_literal)))
 
       (switch_case
         (integer_literal)
         (expression_statement
           (call_expression
           (identifier)
-          (arguments)))
-      )
-      
-    (switch_case
-      (integer_literal)
-      (nextcase_declaration
-        (call_expression
-          (identifier)
-          (arguments)))
-    )
-    
-    (switch_default
-      (expression_statement
-        (call_expression
-          (scoped_identifier
+          (arguments))))
+
+      (switch_case
+        (integer_literal)
+        (nextcase_declaration
+          (call_expression
             (identifier)
-            (identifier))
-              (arguments
-                (string_literal))))
-    )
-)))
+            (arguments))))
+
+      (switch_default
+        (expression_statement
+          (call_expression
+            (scoped_identifier
+              (identifier)
+              (identifier))
+                (arguments
+                  (string_literal))))))))
