@@ -816,6 +816,10 @@
           "named": true
         },
         {
+          "type": "foreach_statement",
+          "named": true
+        },
+        {
           "type": "function_declaration",
           "named": true
         },
@@ -1154,6 +1158,10 @@
           "named": true
         },
         {
+          "type": "foreach_statement",
+          "named": true
+        },
+        {
           "type": "function_declaration",
           "named": true
         },
@@ -1442,6 +1450,10 @@
           },
           {
             "type": "for_statement",
+            "named": true
+          },
+          {
+            "type": "foreach_statement",
             "named": true
           },
           {
@@ -2163,6 +2175,10 @@
             "named": true
           },
           {
+            "type": "foreach_statement",
+            "named": true
+          },
+          {
             "type": "function_declaration",
             "named": true
           },
@@ -2406,6 +2422,132 @@
           },
           {
             "type": "unary_expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "foreach_statement",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": ";",
+            "named": false
+          },
+          {
+            "type": "compound_statement",
+            "named": true
+          },
+          {
+            "type": "const_declaration",
+            "named": true
+          },
+          {
+            "type": "defer_statement",
+            "named": true
+          },
+          {
+            "type": "define_declaration",
+            "named": true
+          },
+          {
+            "type": "do_statement",
+            "named": true
+          },
+          {
+            "type": "enum_declaration",
+            "named": true
+          },
+          {
+            "type": "error_declaration",
+            "named": true
+          },
+          {
+            "type": "expression_statement",
+            "named": true
+          },
+          {
+            "type": "for_statement",
+            "named": true
+          },
+          {
+            "type": "foreach_statement",
+            "named": true
+          },
+          {
+            "type": "function_declaration",
+            "named": true
+          },
+          {
+            "type": "if_statement",
+            "named": true
+          },
+          {
+            "type": "import_declaration",
+            "named": true
+          },
+          {
+            "type": "module_declaration",
+            "named": true
+          },
+          {
+            "type": "return_statement",
+            "named": true
+          },
+          {
+            "type": "struct_declaration",
+            "named": true
+          },
+          {
+            "type": "switch_statement",
+            "named": true
+          },
+          {
+            "type": "union_declaration",
+            "named": true
+          },
+          {
+            "type": "var_declaration",
+            "named": true
+          },
+          {
+            "type": "while_statement",
+            "named": true
+          }
+        ]
+      },
+      "collection": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "index": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -2697,6 +2839,10 @@
             "named": true
           },
           {
+            "type": "foreach_statement",
+            "named": true
+          },
+          {
             "type": "function_declaration",
             "named": true
           },
@@ -2790,6 +2936,10 @@
           },
           {
             "type": "for_statement",
+            "named": true
+          },
+          {
+            "type": "foreach_statement",
             "named": true
           },
           {
@@ -4073,6 +4223,10 @@
           "named": true
         },
         {
+          "type": "foreach_statement",
+          "named": true
+        },
+        {
           "type": "function_declaration",
           "named": true
         },
@@ -4523,6 +4677,10 @@
           "named": true
         },
         {
+          "type": "foreach_statement",
+          "named": true
+        },
+        {
           "type": "function_declaration",
           "named": true
         },
@@ -4611,6 +4769,10 @@
           },
           {
             "type": "for_statement",
+            "named": true
+          },
+          {
+            "type": "foreach_statement",
             "named": true
           },
           {
@@ -5189,6 +5351,10 @@
             "named": true
           },
           {
+            "type": "foreach_statement",
+            "named": true
+          },
+          {
             "type": "function_declaration",
             "named": true
           },
@@ -5532,6 +5698,10 @@
   },
   {
     "type": "for",
+    "named": false
+  },
+  {
+    "type": "foreach",
     "named": false
   },
   {

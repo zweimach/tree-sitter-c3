@@ -83,6 +83,7 @@ module.exports = grammar({
         $.while_statement,
         $.do_statement, 
         $.for_statement,
+        $.foreach_statement,
         $.defer_statement,
         $.switch_statement
       ),
@@ -149,6 +150,19 @@ module.exports = grammar({
         field("condition", optional($._expression)),
         ";",
         field("update", optional($._expression)),
+        ")",
+        field("body", choice($._statement, $.compound_statement))
+      ),
+
+    foreach_statement: ($) =>
+     seq(
+        "foreach",
+        "(",
+        field("index", $.identifier),
+        ",",
+        field("value", $.identifier),
+        ":",
+        field("collection", $.identifier),
         ")",
         field("body", choice($._statement, $.compound_statement))
       ),
