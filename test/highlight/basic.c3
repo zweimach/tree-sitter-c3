@@ -13,7 +13,7 @@ import std::io;
 //            ^ punctuation.delimiter
 
 fn void! main(int argc, char** argv) {
-// <- keyword
+// <- keyword.function
 //  ^ type
 //     ^ operator
 //        ^ function
@@ -42,7 +42,7 @@ io::printf("Hello, World!\n");
 // <- punctuation.bracket
 
 fn int square(int x, int y) {
-// <- keyword
+// <- keyword.function
 //  ^ type
 //      ^ function
 //           ^ punctuation.bracket
