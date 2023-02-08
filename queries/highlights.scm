@@ -1,10 +1,7 @@
-(identifier) @variable
-
 [
   "const"
   "enum"
   "extern"
-  "fn"
   "inline"
   "struct"
   "union"
@@ -23,9 +20,8 @@
 ] @keyword.return
 
 [
-  "while"
-  "for"
-] @repeat
+  "fn"
+] @keyword.function
 
 [
   "while"

@@ -4,6 +4,7 @@ module package::basic;
 //            ^ punctuation.delimiter
 //               ^namespace
 //                   ^ punctuation.delimiter
+
 import std::io;
 // <- include
 //      ^ namespace
