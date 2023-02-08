@@ -124,6 +124,25 @@ while (Point* p = getPoint())
               (arguments))))))))
 
 ================================================================================
+Do statements
+================================================================================
+
+do 
+{
+  print(i);
+};
+
+---
+(source_file
+  (do_statement
+    (compound_statement
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier)))))))
+
+================================================================================
 For statements
 ================================================================================
 
@@ -253,3 +272,228 @@ defer {
           (call_expression
             (identifier)
             (arguments)))))))
+
+================================================================================
+Switch statements
+================================================================================
+
+switch {
+  case 1:
+  case 2:
+    a();
+    nextcase;
+  case 3:
+    b();
+  default:
+    c();
+    break;
+}
+
+switch {
+  case true:
+    return;
+}
+
+switch (i) {
+  case 1:
+    doSomething();
+    nextcase;
+  case 2:
+    doSomethingElse();
+}
+
+switch (true)
+{
+    case x < 0:
+        xless();
+    case x > 0:
+        xgreater();
+    default:
+        xequals();
+}
+
+switch {
+  case foo() > 0:
+    bar();
+  case test() == 1:
+    baz();
+}
+
+switch (i) {
+  case 1:
+    doSomething();
+    nextcase 3;
+  case 2:
+    doSomethingElse();
+  case 3:
+    nextcase rand();
+  default:
+    io::println("Ended");
+}
+
+---
+
+(source_file
+ 
+ (switch_statement
+    (switch_body
+      
+      (switch_case
+        (integer_literal))
+      
+      (switch_case
+        (integer_literal)
+        (expression_statement
+          (call_expression
+          (identifier)
+          (arguments)))
+          (nextcase_declaration)
+      )
+
+      (switch_case
+        (integer_literal)
+         (expression_statement
+          (call_expression
+          (identifier)
+          (arguments)))
+      )
+
+      (switch_default
+         (expression_statement
+          (call_expression
+          (identifier)
+          (arguments)))
+        (expression_statement
+          (identifier))
+      )      
+    )
+  )
+
+  (switch_statement
+    (switch_body
+
+      (switch_case
+        (boolean_literal)
+        (return_statement)
+      )
+    )
+  )
+
+  (switch_statement
+    (parenthesized_expression
+      (identifier))
+    
+    (switch_body
+      
+      (switch_case
+        (integer_literal)
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments)))
+        (nextcase_declaration) 
+      )
+      
+      (switch_case
+        (integer_literal)
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments)
+          )
+        )
+      )
+    )
+  )
+
+  (switch_statement
+    (parenthesized_expression
+      (boolean_literal))
+    (switch_body
+      (switch_case
+        (binary_expression
+          (identifier)
+          (integer_literal))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments))))
+      (switch_case
+        (binary_expression
+          (identifier)
+          (integer_literal))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments))))
+      (switch_default
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments))))))
+
+  (switch_statement
+    (switch_body
+      (switch_case
+        (binary_expression
+          (call_expression
+            (identifier)
+            (arguments))
+          (integer_literal))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments))))
+      (switch_case
+        (binary_expression
+          (call_expression
+            (identifier)
+            (arguments))
+          (integer_literal))
+        (expression_statement
+          (call_expression
+            (identifier)
+            (arguments))))))
+
+  (switch_statement
+    (parenthesized_expression
+      (identifier))
+
+    (switch_body
+
+      (switch_case
+        (integer_literal)
+        (expression_statement
+          (call_expression
+          (identifier)
+          (arguments)))
+        (nextcase_declaration
+          (integer_literal))
+      )
+
+      (switch_case
+        (integer_literal)
+        (expression_statement
+          (call_expression
+          (identifier)
+          (arguments)))
+      )
+      
+    (switch_case
+      (integer_literal)
+      (nextcase_declaration
+        (call_expression
+          (identifier)
+          (arguments)))
+    )
+    
+    (switch_default
+      (expression_statement
+        (call_expression
+          (scoped_identifier
+            (identifier)
+            (identifier))
+              (arguments
+                (string_literal))))
+    )
+)))

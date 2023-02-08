@@ -1,10 +1,7 @@
-(identifier) @variable
-
 [
   "const"
   "enum"
   "extern"
-  "fn"
   "inline"
   "struct"
   "union"
@@ -16,7 +13,15 @@
   "defer"
 ] @keyword
 
-"return" @keyword.return
+"import" @include
+
+[
+  "return"
+] @keyword.return
+
+[
+  "fn"
+] @keyword.function
 
 [
   "while"
@@ -26,9 +31,8 @@
 [
   "if"
   "else"
+  "switch"
 ] @conditional
-
-"import" @include
 
 [
   "="
@@ -137,6 +141,7 @@
 ] @type
 
 (const_declaration (identifier) @constant)
+
 (enumerator
   name: (const_identifier) @constant)
 
@@ -158,5 +163,11 @@
 (parameter (identifier) @parameter)
 
 (attribute (identifier) @attribute)
+
+(identifier) @variable
+
+(primitive_type) @type
+
+(string_literal) @string
 
 (ERROR) @error
