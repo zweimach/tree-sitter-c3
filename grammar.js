@@ -600,7 +600,7 @@ module.exports = grammar({
 
     define_declaration: ($) =>
       seq(
-        "define",
+        "def",
         choice(
           seq($.identifier, "=", $._path),
           seq($.identifier, "=", $._path, $.type_parameters),
