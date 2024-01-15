@@ -605,7 +605,7 @@ module.exports = grammar({
           seq($.identifier, "=", $._path),
           seq($.identifier, "=", $._path, $.type_parameters),
           seq($.type_identifier, "=", optional("distinct"), $._type),
-          seq($.type_identifier, "=", $._type_path, $.type_parameters),
+          seq($.type_identifier, "=", $._type_path, optional("("), $.type_parameters, optional(")")),
           seq($.type_identifier, "=", $.function_pointer_type)
         ),
         ";"
