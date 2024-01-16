@@ -3462,7 +3462,7 @@
       "members": [
         {
           "type": "STRING",
-          "value": "define"
+          "value": "def"
         },
         {
           "type": "CHOICE",
@@ -3550,8 +3550,32 @@
                   "name": "_type_path"
                 },
                 {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "("
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                },
+                {
                   "type": "SYMBOL",
                   "name": "type_parameters"
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ")"
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
                 }
               ]
             },

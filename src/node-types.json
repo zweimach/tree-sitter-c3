@@ -5637,15 +5637,15 @@
     "named": true
   },
   {
+    "type": "def",
+    "named": false
+  },
+  {
     "type": "default",
     "named": false
   },
   {
     "type": "defer",
-    "named": false
-  },
-  {
-    "type": "define",
     "named": false
   },
   {

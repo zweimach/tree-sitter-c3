@@ -9,7 +9,7 @@
   "union"
   "module"
   "private"
-  "define"
+  "def"
   "distinct"
   "fault"
   "defer"

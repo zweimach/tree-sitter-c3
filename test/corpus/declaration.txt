@@ -134,18 +134,18 @@ import std::data::json;
 Define declarations
 ================================================================================
 
-define CharPtr = char*;
-define Numbers = int[10];
-define Foo = distinct int;
-define bar = foo;
-define bar_var = foo_var;
-define BarFoo = bar::Foo;
-define bar_foo = bar::foo;
-define FooFloat = foo_test::Foo<float, double>;
-define FooFloat2 = Foo<float, double>;
-define testFloat = foo_test::test<float, double>;
-define Callback = fn int(char* text, int value);
-define PI = std::math::PI;
+def CharPtr = char*;
+def Numbers = int[10];
+def Foo = distinct int;
+def bar = foo;
+def bar_var = foo_var;
+def BarFoo = bar::Foo;
+def bar_foo = bar::foo;
+def FooFloat = foo_test::Foo<float, double>;
+def FooFloat2 = Foo<float, double>;
+def testFloat = foo_test::test<float, double>;
+def Callback = fn int(char* text, int value);
+def PI = std::math::PI;
 
 ---
 
